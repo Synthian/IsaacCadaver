@@ -23,7 +23,7 @@ local MAX_ACHIEVEMENT_FRAMES = 240
 
 local achievementFrames = 0
 local achievementSprite = Sprite()
-achievementSprite:Load("gfx/ui/achievement/achievements.anm2", true)
+achievementSprite:Load("gfx/ui/achievement/customAchievements.anm2", true)
 
 function Achievements.LoadData(table)
     if table == nil then
