@@ -16,7 +16,7 @@ Max Health: 0 (+ 1 Bone Heart filled with a Rotten Heart)
 * Any **red hearts that spawn are converted** to Rotten Hearts, with a rare chance to convert into a Bone Heart.
 * Cadaver **can pickup soul hearts, but they are immediately removed to spawn friendly critters**! You made friends in the grave, after all.
 
-***Birthright***
+***Birthright***  
 *Better friends*  
 When Cadaver has Birthright, all current and future **blue flies are converted into random Locusts.** 
 
