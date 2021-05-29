@@ -1,0 +1,12 @@
+<players root="gfx/characters/costumes/" 
+         portraitroot="gfx/ui/boss/" 
+         nameimageroot="gfx/ui/boss/" 
+         bigportraitroot="gfx/ui/stage/">
+	<player name="Cadaver" skin="character.png" hp="0" armor="1"
+          nameimage="name.png" 
+          portrait="portrait.png" 
+          bigportrait="portrait.png"
+          skinColor="4" costumeSuffix="cadaver"
+          pocketActive="639"
+		      birthright="Better friends" />
+</players>
