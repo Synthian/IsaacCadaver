@@ -1,7 +1,7 @@
 local ForbiddenFruit = {}
 
 CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT = Isaac.GetItemIdByName("Forbidden Fruit")
-local TICKS_PER_DAMAGE = 60
+local TICKS_PER_DAMAGE = 120
 local TEAR_DELAY_MULTIPLIER = 0.5
 local DAMAGE_MULTIPLIER = 3.0
 
