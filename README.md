@@ -21,11 +21,11 @@ Max Health: 0 (+ 1 Bone Heart filled with a Rotten Heart)
 When Cadaver has Birthright, all current and future **blue flies are converted into random Locusts.** 
 
 ## Unlocks
-***Vestments [Angel Room]***  
+### Vestments [Angel Room]
 *Defeat Isaac and ??? as Cadaver*  
 Gain a random Angel Room item effect in every room. This item counts towards the Seraphim transformation. Leaving and re-entering a room will give the same effect each time.
 
-***Probiotics [Trinket]***  
+### Probiotics [Trinket]
 *Defeat Satan and The Lamb as Cadaver*  
 If Isaac has a Rotten Heart, gain a moderate stat boost:
 +1 flat damage
@@ -33,24 +33,24 @@ If Isaac has a Rotten Heart, gain a moderate stat boost:
 +0.25 Speed
 +1 Luck
 
-***Soul of Cadaver***  
+### Soul of Cadaver
 *Defeat Hush as Cadaver*  
 Spawns 8 small friendly leeches, 8 small friendly maggots, 1 bone heart, and 2 rotten hearts.
 
-***Cadaver's Left Eye***  
+### Cadaver's Left Eye [Treasure Room]
 *Defeat Delirium as Cadaver*  
 +2 flat damage  
 Fixes fire rate at 1.5 and converts all tear ups into an equivalent damage multiplier.
 
-***Forbidden Fruit [Devil Room]***  
+### Forbidden Fruit [Devil Room]
 *Defeat Mother as Cadaver*  
 One time use active. When used, gain a permanent 3x damage multiplier and 0.5x tear delay multiplier. Once used, Isaac takes 1 instance of damage every 4 seconds until the end of the run (persists through resurrections).
 
-***Golden Soul***  
+### Golden Soul
 *Defeat The Beast as Cadaver*  
 Activates a random soul effect. Has a 60% chance to remain in Isaac's pocket after use.
 
-***Rotten Chests***  
+### Rotten Chests
 *Defeat Mega Satan as Cadaver*  
 Rotten Chests replace 10% of normal chest spawns. They do not require a key.  
 When opened, has a 15% chance to spawn a "rotten" pedestal item. Otherwise, spawns 2 normal pickups and 1 "rotten" pickup.  
