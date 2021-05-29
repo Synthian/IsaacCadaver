@@ -27,10 +27,10 @@ Gain a random Angel Room item effect in every room. This item counts towards the
 
 ### Probiotics [Trinket]
 *Defeat Satan and The Lamb as Cadaver*  
-If Isaac has a Rotten Heart, gain a moderate stat boost:
-+1 flat damage
--0.5 Tear Delay
-+0.25 Speed
+If Isaac has a Rotten Heart, gain a moderate stat boost:  
++1 flat damage  
+-0.5 Tear Delay  
++0.25 Speed  
 +1 Luck
 
 ### Soul of Cadaver
