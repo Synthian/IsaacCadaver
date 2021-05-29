@@ -114,6 +114,7 @@ function Achievements:IsaacAchievement(npc)
 end
 
 function Achievements:SatanAchievement(npc)
+    local stage = Game():GetLevel():GetStage()
     local player = Isaac.GetPlayer(0)
     if player:GetName() == "Cadaver" and stage == LevelStage.STAGE5 and not CadaverAchievements.Satan then
         CadaverAchievements.Satan = true
@@ -122,6 +123,7 @@ function Achievements:SatanAchievement(npc)
 end
 
 function Achievements:LambAchievement(npc)
+    local stage = Game():GetLevel():GetStage()
     local player = Isaac.GetPlayer(0)
     if player:GetName() == "Cadaver" and stage == LevelStage.STAGE6 and not CadaverAchievements.Lamb then
         CadaverAchievements.Lamb = true
