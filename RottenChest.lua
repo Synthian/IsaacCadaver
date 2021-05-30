@@ -42,7 +42,7 @@ end
 function RottenChest.ReplaceChests(pickup)
     local stage = Game():GetLevel():GetStage()
     math.randomseed(pickup.InitSeed)
-    if CadaverAchievements.RottenChest and stage ~= LevelStage.STAGE6 and math.random() < 0.1 then
+    if CadaverAchievements.RottenChest and stage ~= LevelStage.STAGE6 and math.random() < 0.05 then
         pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_ROTTENCHEST, MyChestSubType.CLOSED)
         SFXManager():Play(SoundEffect.SOUND_CHEST_DROP)
     end
