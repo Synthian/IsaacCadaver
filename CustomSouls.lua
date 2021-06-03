@@ -47,9 +47,9 @@ function CustomSouls.ChangeSprites(pickup)
 end
 
 function CustomSouls.UseGoldenSoul(player)
-    local soul = SOUL_CARDS[math.random( #SOUL_CARDS )]
+    local soul = SOUL_CARDS[Helper.OneIndexedRandom( #SOUL_CARDS )]
     player:UseCard(soul)
-    if math.random() < GOLDEN_SOUL_CHANCE then
+    if CadaverRNG:RandomFloat() < GOLDEN_SOUL_CHANCE then
         player:SetCard(0, Card.CARD_SOUL_GOLDEN)
     end
 end

@@ -12,8 +12,12 @@ local Cadaver = RegisterMod("Cadaver", 1)
 
 Achievements.RegisterCallbacks(Cadaver)
 
+CadaverRNG = RNG()
+
 -- # POST GAME START #
 function Cadaver:StartRun(isContinued)
+    RNG():SetSeed(Game():GetSeeds():GetStartSeed(), 0)
+
     if Cadaver:HasData() then
         local table = json.decode(Cadaver:LoadData())
         ForbiddenFruit.LoadData(table.ForbiddenFruit)

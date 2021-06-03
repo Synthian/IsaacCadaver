@@ -50,13 +50,13 @@ end
 
 function RottenChest.SpawnReward(chest, collider)
     -- 15% chance to spawn pedestal item
-    if math.random() < 0.15 then
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, ROTTEN_CHEST_POOL[math.random(#ROTTEN_CHEST_POOL)], chest.Position, Helper.RandomVelocity(), nil)
+    if CadaverRNG:RandomFloat() < 0.15 then
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, ROTTEN_CHEST_POOL[Helper.OneIndexedRandom(#ROTTEN_CHEST_POOL)], chest.Position, Helper.RandomVelocity(), nil)
         chest:Remove()
     else
         -- 2 normal pickups
         for i=1,2 do
-            local roll = math.random()
+            local roll = CadaverRNG:RandomFloat()
             if roll < 0.25 then
                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, 0, chest.Position, Helper.RandomVelocity(), nil)
             elseif roll < 0.5 then
@@ -69,7 +69,7 @@ function RottenChest.SpawnReward(chest, collider)
         end
 
         -- 1 "rotten" option
-        roll = math.random()
+        roll = CadaverRNG:RandomFloat()
         if roll < 0.5 then
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN, chest.Position, Helper.RandomVelocity(), nil)
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN, chest.Position, Helper.RandomVelocity(), nil)
@@ -77,9 +77,9 @@ function RottenChest.SpawnReward(chest, collider)
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE, chest.Position, Helper.RandomVelocity(), nil)
         else
             if not CadaverAchievements.Probiotics then
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[math.random(#ROTTEN_CHEST_TRINKETS - 1) + 1], chest.Position, Helper.RandomVelocity(), nil)
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(#ROTTEN_CHEST_TRINKETS - 1) + 1], chest.Position, Helper.RandomVelocity(), nil)
             else
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[math.random(#ROTTEN_CHEST_TRINKETS)], chest.Position, Helper.RandomVelocity(), nil)
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(#ROTTEN_CHEST_TRINKETS)], chest.Position, Helper.RandomVelocity(), nil)
             end
         end 
     end
@@ -96,7 +96,7 @@ function RottenChest.OpenChest(pickup, collider, low)
             numRewards = numRewards + 1
         end
         if player:HasTrinket(TrinketType.TRINKET_POKER_CHIP) then
-            if math.random() < 0.5 then
+            if CadaverRNG:RandomFloat() < 0.5 then
                 numRewards = 0
             else
                 numRewards = numRewards + 1
