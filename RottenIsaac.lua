@@ -62,6 +62,10 @@ end
 function RottenIsaac.ReplaceHearts(pickup)
     local player = Isaac.GetPlayer(0)
     if player:GetName() == "Cadaver" then
+        -- Bail if we're in the secret room that only allows red hearts
+        local room = Game():GetLevel():GetCurrentRoomDesc().Data
+        if room.Type == RoomType.ROOM_SUPERSECRET and room.Variant == 0 then return end
+
         if Helper.IsRedHeart(pickup.Type, pickup.Variant, pickup.SubType) then
             if pickup:IsShopItem() then
                 pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN, true)
@@ -101,12 +105,6 @@ end
 function RottenIsaac.ModifyStats(player, cacheFlag)
     if player:GetName() == "Cadaver" or player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH) then
         if cacheFlag == CacheFlag.CACHE_FIREDELAY or cacheFlag == CacheFlag.CACHE_DAMAGE then
-            -- print("cacheFlag: " .. cacheFlag)
-            -- print("MaxFireDelay: " .. player.MaxFireDelay .. " Static Tear Delay: " .. CADAVER_STATS.STATIC_TEAR_DELAY)
-            -- print("Damage: " .. player.Damage .. " Calculated Damage: " .. lastCalculatedDamage)
-            -- print("Last Item Damage: " .. lastItemDamage)
-            -- print("========")
-    
             -- Just tears changed
             if string.format("%.2f", player.Damage) == string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
                 local lockedRate = 30.0 / (CADAVER_STATS.STATIC_TEAR_DELAY + 1.0)
