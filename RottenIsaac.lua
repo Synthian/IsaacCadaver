@@ -11,13 +11,6 @@ local CADAVER_STATS = {
 local lastItemDamage = -1.0
 local lastCalculatedDamage = -1.0
 local currentMultiplier = -1.0
-local healthInitialized = true
-
-function RottenIsaac.Reset(isContinued)
-    if not isContinued then
-        healthInitialized = false
-    end
-end
 
 function RottenIsaac.AddCostume(player)
     local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
@@ -81,7 +74,10 @@ function RottenIsaac.ReplaceHearts(pickup)
 end
 
 function RottenIsaac.ConvertHealth(player)
-    if healthInitialized then
+    if player:GetBlackHearts() == 0 and player:GetEffectiveMaxHearts() == 0 and player:GetEternalHearts() == 0 and player:GetSoulHearts() == 1 then
+        player:AddBoneHearts(1)
+        player:AddHearts(1)
+    else
         local hearts = player:GetHearts()
         local rottenHearts = player:GetRottenHearts()
         local rottenReplacements = hearts - (rottenHearts * 2) 
@@ -93,12 +89,6 @@ function RottenIsaac.ConvertHealth(player)
         for i=1,soulHearts do
             RottenIsaac.SpawnFriends()
         end
-    end
-    
-    if not healthInitialized then
-        player:AddBoneHearts(1)
-        player:AddHearts(1)
-        healthInitialized = true
     end
 end
 

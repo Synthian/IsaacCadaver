@@ -7,7 +7,7 @@ local RottenIsaac = include("RottenIsaac")
 local CustomSouls = include("CustomSouls")  
 local RottenChest = include("RottenChest")
 local ItemPools = include("ItemPools")
-local json = include("json")                                                                                         
+local json = include("json")
 local Cadaver = RegisterMod("Cadaver", 1)
 
 Achievements.RegisterCallbacks(Cadaver)
@@ -28,7 +28,6 @@ function Cadaver:StartRun(isContinued)
         Achievements.Reset()
     end
 
-    RottenIsaac.Reset(isContinued)
     Vestments.Reset(isContinued)
     ForbiddenFruit.Reset(isContinued)
     ItemPools.Reset(isContinued)
