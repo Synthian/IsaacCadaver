@@ -62,6 +62,7 @@ Normal pickups: coin, heart, key, bomb.
 Rotten pickups: 2 rotten hearts, 1 bone heart, 1 "rotten" trinket  
 
 ## Known Issues
+* If a Soul of Cadaver or Golden Soul *would* have spawned but are not unlocked, they are replaced with a Rune Shard to prevent spawning souls you do not already have. I'd like to find a way to work around this.
 * Completion marks do not display on the main menu, even though they are being tracked.
 * Several effects ignore item unlocks. For instance, you can obtain bone hearts before unlocking them. I am not aware of a way to avoid this.
 * Achievements show up immediately upon a boss dying, rather than after the run has completed / in between stages. I am not aware of a way to avoid this.
