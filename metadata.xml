@@ -1,8 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-	<name>Cadaver</name>
-	<directory>cadaver</directory>
-	<description/>
-	<version>1.0</version>
-	<visibility/>
-</metadata>
+    <name>Cadaver</name>
+    <directory>cadaver</directory>
+    <id>2508822241</id>
+    <description>Cadaver is a mod for The Binding of Isaac: Repentance that adds 7 new unlocks and 1 new playable character! Explore the basement with Cadaver, Isaac's rotting corpse, and gain access to Golden Souls, Rotten Chests, and more!
 
+- CADAVER -
+
+Cadaver only has one rotten eye, so he can only fire at a fixed 1.5 tears per second All tear pickups are converted to an equivalent damage multiplier.
+
+Cadaver can only obtain Rotten Hearts and Bone Hearts. Any red hearts that spawn are converted to Rotten Hearts, with a rare chance to convert into a Bone Heart.
+
+Cadaver can pickup soul hearts, but they are immediately removed to spawn friendly critters!
+
+- UNLOCKS -
+
+Vestments: Gain a random Angel Room item effect in every room.
+
+Probiotics [Trinket]: If Isaac has a Rotten Heart, gain a moderate stat boost.
+
+Soul of Cadaver: Spawns friendly leeches, friendly maggots, a bone heart, and rotten hearts.
+
+Cadaver's Left Eye: Increased Damage. Fixes fire rate at 1.5 and converts all tear ups into an equivalent damage multiplier.
+
+Forbidden Fruit [Active]: When used, gain a permanent damage multiplier and tear delay reduction. Once used, Isaac takes periodic damage until the end of the run (persists through resurrections).
+
+Golden Soul: Activates a random soul effect. Has a chance to remain in Isaac's pocket after use.
+
+Rotten Chests: Rarely, a normal chest will be replaced with a rotten variant that gives some additonal rotten-themed pickups. Also a chance to spawn a rotten pedestal item!
+
+- MORE INFO -
+
+For full details, see the GitHub: https://github.com/Synthian/IsaacCadaver/blob/master/README.md
+
+Please report bugs to the GitHub as well, the more detail you can provide the better :)</description>
+    <version>1.2</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Pickups"/>
+    <tag id="Player Characters"/>
+    <tag id="Graphics"/>
+</metadata>
