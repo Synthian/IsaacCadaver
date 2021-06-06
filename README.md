@@ -55,7 +55,7 @@ Activates a random soul effect. Has a 60% chance to remain in Isaac's pocket aft
 
 ### Rotten Chests
 *Defeat Mega Satan as Cadaver*  
-Rotten Chests replace 10% of normal chest spawns. They do not require a key.  
+Rotten Chests replace 5% of normal chest spawns. They do not require a key.  
 When opened, has a 15% chance to spawn a "rotten" pedestal item. Otherwise, spawns 2 normal pickups and 1 "rotten" pickup.  
 
 Normal pickups: coin, heart, key, bomb.  
