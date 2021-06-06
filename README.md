@@ -9,7 +9,7 @@ Fire Rate: 1.5
 Max Health: 0 (+ 1 Bone Heart filled with a Rotten Heart)  
 *All other stats are the same as Isaac.*  
 
-***Starting Item***
+***Starting Item***   
 Yuck Heart   
 
 ***Passives***
