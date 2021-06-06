@@ -103,7 +103,7 @@ function RottenIsaac.ConvertHealth(player)
 end
 
 function RottenIsaac.ModifyStats(player, cacheFlag)
-    if player:GetName() == "Cadaver" or player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH) then
+    if player:GetName() == "Cadaver" then
         if cacheFlag == CacheFlag.CACHE_FIREDELAY or cacheFlag == CacheFlag.CACHE_DAMAGE then
             -- Just tears changed
             if string.format("%.2f", player.Damage) == string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
