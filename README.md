@@ -9,6 +9,9 @@ Fire Rate: 1.5
 Max Health: 0 (+ 1 Bone Heart filled with a Rotten Heart)  
 *All other stats are the same as Isaac.*  
 
+***Starting Item***
+Yuck Heart   
+
 ***Passives***
 * Cadaver only has one rotten eye, so he can only fire at a **fixed 1.5 tears per second**. Those tears are nasty though! All **tear pickups are converted to an equivalent damage multiplier.** Cadaver keeps the same DPS as normal Isaac, but with all of the stats weighted towards Damage.
 * Cadaver can **only obtain Rotten Hearts and Bone Hearts.** 
@@ -59,6 +62,6 @@ Normal pickups: coin, heart, key, bomb.
 Rotten pickups: 2 rotten hearts, 1 bone heart, 1 "rotten" trinket  
 
 ## Known Issues
-* There are many missing Cadaver costumes. Picking up some items may make Cadaver look like Isaac. This is a Work in Progress.
+* Completion marks do not display on the main menu, even though they are being tracked.
 * Several effects ignore item unlocks. For instance, you can obtain bone hearts before unlocking them. I am not aware of a way to avoid this.
 * Achievements show up immediately upon a boss dying, rather than after the run has completed / in between stages. I am not aware of a way to avoid this.
