@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>Cadaver Standalone</name>
+    <directory>cadaver</directory>
+    <id>2509303609</id>
+    <description>This is the standalone character version of the parent mod "Cadaver: The Rotten Expansion." To get the full experience and gain unique unlocks while playing Cadaver, install that mod instead: https://steamcommunity.com/sharedfiles/filedetails/?id=2508822241
+
+- CADAVER -
+
+Cadaver only has one rotten eye, so he can only fire at a fixed 1.5 tears per second. All tear pickups are converted to an equivalent damage multiplier.
+
+Cadaver can only obtain Rotten Hearts and Bone Hearts. Any red hearts that spawn are converted to Rotten Hearts, with a rare chance to convert into a Bone Heart.
+
+Cadaver can pickup soul hearts, but they are immediately removed to spawn friendly critters!
+
+Birthright turns all current and future blue flies into locusts!
+
+Cadaver starts with Yuck Heart. Use it in combat or in Curse Rooms to hold on to your bone hearts.</description>
+    <version>1.1</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Player Characters"/>
+    <tag id="Graphics"/>
+</metadata>

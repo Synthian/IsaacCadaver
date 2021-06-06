@@ -7,7 +7,6 @@ CadaverRNG = RNG()
 -- # POST GAME START #
 function Cadaver:StartRun(isContinued)
     RNG():SetSeed(Game():GetSeeds():GetStartSeed(), 0)
-    RottenIsaac.Reset(isContinued)
     -- Evaluate stats after everything has been setup
     local player = Isaac.GetPlayer(0)
     player:AddCacheFlags(CacheFlag.CACHE_ALL)
