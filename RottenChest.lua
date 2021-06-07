@@ -1,4 +1,4 @@
-local Helper = include("Helper")
+local Helper = require("Helper")
 local RottenChest = {}
 
 PickupVariant.PICKUP_ROTTENCHEST = Isaac.GetEntityVariantByName("Rotten Chest")

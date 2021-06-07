@@ -1,4 +1,4 @@
-local Helper = include("Helper")
+local Helper = require("Helper")
 local Vestments = {}
 
 CollectibleType.COLLECTIBLE_VESTMENTS = Isaac.GetItemIdByName("Vestments")

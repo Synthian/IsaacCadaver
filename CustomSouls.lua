@@ -1,4 +1,4 @@
-local Helper = include("Helper")
+local Helper = require("Helper")
 local CustomSouls = {}
 
 Card.CARD_SOUL_CADAVER = Isaac.GetCardIdByName("SoulOfCadaver")
