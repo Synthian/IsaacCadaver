@@ -25,12 +25,10 @@ function ItemPools.Reset(isContinued)
     end
 end
 
-function ItemPools.GetTrinket(selectedTrinket, RNG)
-    if not spawnHistory.Probiotics and CadaverAchievements.Probiotics and CadaverRNG:RandomFloat() < 0.005 then
-        spawnHistory.Probiotics = true
-        return TrinketType.TRINKET_PROBIOTICS
+function ItemPools.RemoveLockedTrinkets(pickup)
+    if pickup.SubType == TrinketType.TRINKET_PROBIOTICS and not CadaverAchievements.Probiotics then
+        pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, TrinketType.TRINKET_NULL)
     end
-    return nil
 end
 
 function ItemPools.GetCollectible(itemPoolType, decrease, seed)

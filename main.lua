@@ -52,17 +52,17 @@ function Cadaver:ModifyTarotCards(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTarotCards, PickupVariant.PICKUP_TAROTCARD)
 
+-- # POST TRINKET CREATION #
+function Cadaver:ModifyTrinkets(pickup)
+    ItemPools.RemoveLockedTrinkets(pickup)
+end
+Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTrinkets, PickupVariant.PICKUP_TRINKET)
+
 -- # POST HEART CREATION #
 function Cadaver:ModifyHearts(pickup)
     RottenIsaac.ReplaceHearts(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyHearts, PickupVariant.PICKUP_HEART)
-
--- # MODIFY TRINKET DROPS #
-function Cadaver:ModifyTrinket(selectedTrinket, RNG)
-    return ItemPools.GetTrinket(selectedTrinket, RNG)
-end
-Cadaver:AddCallback(ModCallbacks.MC_GET_TRINKET, Cadaver.ModifyTrinket)
 
 -- # MODIFY COLLECTIBLE DROPS #
 function Cadaver:ModifyCollectible(itemPoolType, decrease, seed)
