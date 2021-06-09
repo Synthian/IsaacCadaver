@@ -87,7 +87,7 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.CadaverEffectUp
 
 -- # POST PLAYER INIT #
 function Cadaver:PlayerInit(player)
-	if player:GetName() == "Cadaver" then
+	if player:GetPlayerType() == PlayerType.PLAYER_CADAVER then
 		RottenIsaac.AddCostume(player)
 	end
 end

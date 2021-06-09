@@ -51,7 +51,7 @@ One time use active. When used, gain a permanent 3x damage multiplier and 0.5x t
 
 ### Golden Soul
 *Defeat The Beast as Cadaver*  
-Activates a random soul effect. Has a 60% chance to remain in Isaac's pocket after use.
+Activates a random soul effect, excluding Soul of Lazarus. Has a 60% chance to remain in Isaac's pocket after use.
 
 ### Rotten Chests
 *Defeat Mega Satan as Cadaver*  

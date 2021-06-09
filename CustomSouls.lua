@@ -13,7 +13,6 @@ local SOUL_CARDS = {
     Card.CARD_SOUL_EVE,
     Card.CARD_SOUL_SAMSON,
     Card.CARD_SOUL_AZAZEL,
-    Card.CARD_SOUL_LAZARUS,
     Card.CARD_SOUL_EDEN,
     Card.CARD_SOUL_LOST,
     Card.CARD_SOUL_LILITH,

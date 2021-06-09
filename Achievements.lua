@@ -157,7 +157,7 @@ end
 
 function Achievements:MotherAchievement(npc)
     local player = Isaac.GetPlayer(0)
-    if player:GetName() == "Cadaver"  and not CadaverAchievements.Mother then
+    if player:GetName() == "Cadaver" and npc.Variant == 10 and not CadaverAchievements.Mother then
         CadaverAchievements.Mother = true
         Achievements.TryUnlock()
     end

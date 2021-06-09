@@ -54,7 +54,7 @@ end
 
 function RottenIsaac.ReplaceHearts(pickup)
     local player = Isaac.GetPlayer(0)
-    if player:GetName() == "Cadaver" then
+    if player:GetPlayerType() == PlayerType.PLAYER_CADAVER then
         -- Bail if we're in the secret room that only allows red hearts
         local room = Game():GetLevel():GetCurrentRoomDesc().Data
         if room.Type == RoomType.ROOM_SUPERSECRET and room.Variant == 0 then return end
@@ -93,7 +93,7 @@ function RottenIsaac.ConvertHealth(player)
 end
 
 function RottenIsaac.ModifyStats(player, cacheFlag)
-    if player:GetName() == "Cadaver" or player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH) then
+    if player:GetPlayerType() == PlayerType.PLAYER_CADAVER or player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH) then
         if cacheFlag == CacheFlag.CACHE_FIREDELAY or cacheFlag == CacheFlag.CACHE_DAMAGE then
             -- Just tears changed
             if string.format("%.2f", player.Damage) == string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
