@@ -4,6 +4,7 @@ local Vestments = require("Vestments")
 local ForbiddenFruit = require("ForbiddenFruit")
 local Probiotics = require("Probiotics")
 local RottenIsaac = require("RottenIsaac")
+local TaintedCadaver = include("TaintedCadaver")
 local CustomSouls = require("CustomSouls")  
 local RottenChest = require("RottenChest")
 local ItemPools = require("ItemPools")
@@ -32,6 +33,7 @@ function Cadaver:StartRun(isContinued)
     Vestments.Reset(isContinued)
     ForbiddenFruit.Reset(isContinued)
     ItemPools.Reset(isContinued)
+    TaintedCadaver.Reset(isContinued)
 
     -- Evaluate stats after everything has been setup
     local player = Isaac.GetPlayer(0)
@@ -86,6 +88,12 @@ function Cadaver:CadaverEffectUpdate(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.CadaverEffectUpdate, PlayerType.PLAYER_CADAVER)
 
+-- # TAINTED CADAVER EFFECT UPDATES #
+function Cadaver:TaintedCadaverEffectUpdate(player)
+    TaintedCadaver.ManageArmy(player)
+end
+Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.TaintedCadaverEffectUpdate, PlayerType.PLAYER_TAINTED_CADAVER)
+
 -- # POST PLAYER INIT #
 function Cadaver:PlayerInit(player)
 	if player:GetPlayerType() == PlayerType.PLAYER_CADAVER then
@@ -100,6 +108,7 @@ function Cadaver:ModifyStats(player, cacheFlag)
     ForbiddenFruit.ModifyStats(player, cacheFlag)
     RottenFlesh.ModifyStats(player, cacheFlag)
     RottenIsaac.ModifyStats(player, cacheFlag)
+    TaintedCadaver.ModifyStats(player, cacheFlag)
 end
 Cadaver:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Cadaver.ModifyStats)
 
@@ -172,3 +181,11 @@ function Cadaver:OnCommand(command, args)
     end
 end
 Cadaver:AddCallback(ModCallbacks.MC_EXECUTE_CMD, Cadaver.OnCommand)
+
+
+function Cadaver:MaggotMindControl(npc)
+    local player = Isaac.GetPlayer(0)
+    npc.Target = player
+    npc.TargetPosition = player.Position
+end
+Cadaver:AddCallback(ModCallbacks.MC_NPC_UPDATE, Cadaver.MaggotMindControl, EntityType.ENTITY_SMALL_MAGGOT)

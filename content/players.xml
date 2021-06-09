@@ -9,4 +9,10 @@
           skinColor="4" costumeSuffix="cadaver"
           pocketActive="639"
 		      birthright="Better friends" />
+  <player name="Cadaver" skin="character.png" hp="8" bSkinParent="Cadaver"
+          nameimage="name.png" 
+          portrait="portrait.png" 
+          bigportrait="portrait.png"
+          skinColor="4" costumeSuffix="cadaver"
+		      birthright="UNIMPLEMENTED" />
 </players>
