@@ -4,6 +4,7 @@ local Vestments = require("Vestments")
 local ForbiddenFruit = require("ForbiddenFruit")
 local Probiotics = require("Probiotics")
 local RottenIsaac = require("RottenIsaac")
+local Halitosis = include("Halitosis")
 local TaintedCadaver = include("TaintedCadaver")
 local CustomSouls = require("CustomSouls")  
 local RottenChest = require("RottenChest")
@@ -64,6 +65,7 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTrinkets, Pi
 -- # POST HEART CREATION #
 function Cadaver:ModifyHearts(pickup)
     RottenIsaac.ReplaceHearts(pickup)
+    TaintedCadaver.ReplaceHearts(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyHearts, PickupVariant.PICKUP_HEART)
 
@@ -73,11 +75,18 @@ function Cadaver:ModifyCollectible(itemPoolType, decrease, seed)
 end
 Cadaver:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Cadaver.ModifyCollectible)
 
+-- # TEAR INIT #
+function Cadaver:TearInit(tear)
+    
+end
+Cadaver:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, Cadaver.TearInit)
+
 -- # EFFECT UPDATES (Every frame) #
 function Cadaver:EffectUpdate(player)
     Vestments.UpdateVestmentsEffect(player)
     ForbiddenFruit.UpdateForbiddenFruitEffect(player)
     Probiotics.UpdateProbioticsEffect(player)
+    Halitosis.UpdateHalitosisEffect(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.EffectUpdate)
 
@@ -90,21 +99,33 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.CadaverEffectUp
 
 -- # TAINTED CADAVER EFFECT UPDATES #
 function Cadaver:TaintedCadaverEffectUpdate(player)
+    TaintedCadaver.ConvertHealth(player)
     TaintedCadaver.ManageArmy(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.TaintedCadaverEffectUpdate, PlayerType.PLAYER_TAINTED_CADAVER)
+
+-- # TAINTED CADAVER ARMY DAMAGE #
+function Cadaver:TaintedCadaverArmyDamage(entity, amount, flags, source, countdownFrames)
+    return TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
+end
+Cadaver:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Cadaver.TaintedCadaverArmyDamage)
 
 -- # POST PLAYER INIT #
 function Cadaver:PlayerInit(player)
 	if player:GetPlayerType() == PlayerType.PLAYER_CADAVER then
 		RottenIsaac.AddCostume(player)
 	end
+
+    if player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then
+        TaintedCadaver.PlayerInit(player)
+    end
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, Cadaver.PlayerInit)
 
 -- # STAT UPDATES #
 function Cadaver:ModifyStats(player, cacheFlag)
     Probiotics.ModifyStats(player, cacheFlag)
+    -- Halitosis.ModifyStats(player, cacheFlag)
     ForbiddenFruit.ModifyStats(player, cacheFlag)
     RottenFlesh.ModifyStats(player, cacheFlag)
     RottenIsaac.ModifyStats(player, cacheFlag)
@@ -159,10 +180,17 @@ end
 Cadaver:AddCallback(ModCallbacks.MC_USE_CARD, Cadaver.UseCadaverSoul, Card.CARD_SOUL_CADAVER)
 
 -- # FORBIDDEN FRUIT USAGE #
-function Cadaver:UseItem()
+function Cadaver:UseForbiddenFruit()
     return ForbiddenFruit.Use()
 end
-Cadaver:AddCallback(ModCallbacks.MC_USE_ITEM, Cadaver.UseItem, CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT)
+Cadaver:AddCallback(ModCallbacks.MC_USE_ITEM, Cadaver.UseForbiddenFruit, CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT)
+
+-- # HALITOSIS USAGE #
+function Cadaver:UseHalitosis(collectibleType, RNG, player, useFlags, slot)
+    Halitosis.Use(collectibleType, RNG, player, useFlags, slot)
+    TaintedCadaver.KillArmy()
+end
+Cadaver:AddCallback(ModCallbacks.MC_USE_ITEM, Cadaver.UseHalitosis, CollectibleType.COLLECTIBLE_HALITOSIS)
 
 -- # ROTTEN CHEST COLLISION #
 function Cadaver:RottenChestCollision(pickup, collider, low)
@@ -172,20 +200,21 @@ Cadaver:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, Cadaver.RottenChestCol
 
 -- # DEBUG COMMANDS #
 function Cadaver:OnCommand(command, args)
-    if command == "resetcadaver" then
+    if command == "cd_reset" then
         Achievements.Reset()
-    elseif command == "unlockcadaver" then
+    elseif command == "cd_unlockall" then
         Achievements.UnlockAll()
-    elseif command == "achievecadaver" then
+    elseif command == "cd_listunlock" then
         Achievements.ReadOut()
+    elseif command == "cd_spawn" then
+        TaintedCadaver.Spawn(args)
+    elseif command == "cd_army" then
+        TaintedCadaver.GetArmyStats()
+    elseif command == "cd_entities" then
+        local entities = Isaac:GetRoomEntities()
+        for i, entity in ipairs(entities) do
+            print("Type " .. entity.Type .. "Variant " .. entity.Variant .. "SubType " .. entity.SubType)
+        end
     end
 end
 Cadaver:AddCallback(ModCallbacks.MC_EXECUTE_CMD, Cadaver.OnCommand)
-
-
-function Cadaver:MaggotMindControl(npc)
-    local player = Isaac.GetPlayer(0)
-    npc.Target = player
-    npc.TargetPosition = player.Position
-end
-Cadaver:AddCallback(ModCallbacks.MC_NPC_UPDATE, Cadaver.MaggotMindControl, EntityType.ENTITY_SMALL_MAGGOT)
