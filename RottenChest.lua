@@ -41,8 +41,8 @@ end
 
 function RottenChest.ReplaceChests(pickup)
     local stage = Game():GetLevel():GetStage()
-    math.randomseed(pickup.InitSeed)
-    if CadaverAchievements.RottenChest and stage ~= LevelStage.STAGE6 and math.random() < 0.05 then
+    CadaverItemRNG:SetSeed(pickup.DropSeed, 0)
+    if CadaverAchievements.RottenChest and stage ~= LevelStage.STAGE6 and CadaverItemRNG:RandomFloat() < 0.05 then
         pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_ROTTENCHEST, MyChestSubType.CLOSED)
         SFXManager():Play(SoundEffect.SOUND_CHEST_DROP)
     end
@@ -51,7 +51,7 @@ end
 function RottenChest.SpawnReward(chest, collider)
     -- 15% chance to spawn pedestal item
     if CadaverRNG:RandomFloat() < 0.15 then
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, ROTTEN_CHEST_POOL[Helper.OneIndexedRandom(#ROTTEN_CHEST_POOL)], chest.Position, Helper.RandomVelocity(), nil)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, ROTTEN_CHEST_POOL[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_POOL)], chest.Position, Helper.RandomVelocity(), nil)
         chest:Remove()
     else
         -- 2 normal pickups
@@ -77,9 +77,9 @@ function RottenChest.SpawnReward(chest, collider)
             Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE, chest.Position, Helper.RandomVelocity(), nil)
         else
             if not CadaverAchievements.Probiotics then
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(#ROTTEN_CHEST_TRINKETS - 1) + 1], chest.Position, Helper.RandomVelocity(), nil)
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_TRINKETS - 1) + 1], chest.Position, Helper.RandomVelocity(), nil)
             else
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(#ROTTEN_CHEST_TRINKETS)], chest.Position, Helper.RandomVelocity(), nil)
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_TRINKETS)], chest.Position, Helper.RandomVelocity(), nil)
             end
         end 
     end

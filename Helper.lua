@@ -25,8 +25,8 @@ function Helper.RandomVelocity()
     return Vector(math.random() * 2, math.random() * 2)
 end
 
-function Helper.OneIndexedRandom(max)
-    return CadaverRNG:RandomInt(max) + 1
+function Helper.OneIndexedRandom(rng, max)
+    return rng:RandomInt(max) + 1
 end
 
 return Helper

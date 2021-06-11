@@ -32,13 +32,14 @@ function ItemPools.RemoveLockedTrinkets(pickup)
 end
 
 function ItemPools.GetCollectible(itemPoolType, decrease, seed)
-    if itemPoolType == ItemPoolType.POOL_TREASURE and not spawnHistory.RottenFlesh and CadaverAchievements.RottenFlesh and CadaverRNG:RandomFloat() < 0.003 then
+    CadaverItemRNG:SetSeed(seed, 0)
+    if itemPoolType == ItemPoolType.POOL_TREASURE and not spawnHistory.RottenFlesh and CadaverAchievements.RottenFlesh and CadaverItemRNG:RandomFloat() < 0.0025 then
         spawnHistory.RottenFlesh = true
         return CollectibleType.COLLECTIBLE_ROTTEN_FLESH
-    elseif itemPoolType == ItemPoolType.POOL_ANGEL and not spawnHistory.Vestments and CadaverAchievements.Vestments and CadaverRNG:RandomFloat() < 0.02 then
+    elseif itemPoolType == ItemPoolType.POOL_ANGEL and not spawnHistory.Vestments and CadaverAchievements.Vestments and CadaverItemRNG:RandomFloat() < 0.02 then
         spawnHistory.Vestments = true
         return CollectibleType.COLLECTIBLE_VESTMENTS
-    elseif itemPoolType == ItemPoolType.POOL_DEVIL and not spawnHistory.ForbiddenFruit and CadaverAchievements.ForbiddenFruit and CadaverRNG:RandomFloat() < 0.01 then
+    elseif itemPoolType == ItemPoolType.POOL_DEVIL and not spawnHistory.ForbiddenFruit and CadaverAchievements.ForbiddenFruit and CadaverItemRNG:RandomFloat() < 0.01 then
         spawnHistory.ForbiddenFruit = true
         return CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT
     end

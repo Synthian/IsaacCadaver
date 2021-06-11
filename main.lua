@@ -12,11 +12,12 @@ local Cadaver = RegisterMod("Cadaver", 1)
 
 Achievements.RegisterCallbacks(Cadaver)
 
-CadaverRNG = RNG()
+CadaverRNG = RNG() -- Used for general RNG, just seeded at the start with the run seed
+CadaverItemRNG = RNG() -- Used for seeded RNG, never use without setting the seed right beforehand
 
 -- # POST GAME START #
 function Cadaver:StartRun(isContinued)
-    RNG():SetSeed(Game():GetSeeds():GetStartSeed(), 0)
+    CadaverRNG:SetSeed(Game():GetSeeds():GetStartSeed(), 0)
 
     if Cadaver:HasData() then
         local table = json.decode(Cadaver:LoadData())

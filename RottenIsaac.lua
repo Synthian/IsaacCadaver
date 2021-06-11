@@ -23,12 +23,12 @@ function RottenIsaac.SpawnFriends()
     
     if r < 0.2 then
         -- 1-2 random locusts
-        for i=1,Helper.OneIndexedRandom(2) do
-            Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, Helper.OneIndexedRandom(5), Helper.RandomNearbyPosition(player), Vector(0,0), nil)
+        for i=1,Helper.OneIndexedRandom(CadaverRNG, 2) do
+            Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, Helper.OneIndexedRandom(CadaverRNG, 5), Helper.RandomNearbyPosition(player), Vector(0,0), nil)
         end
     elseif r < 0.4 then
         -- 1-2 blue spiders
-        for i=1,Helper.OneIndexedRandom(2) do
+        for i=1,Helper.OneIndexedRandom(CadaverRNG, 2) do
             player:AddBlueSpider(Helper.RandomNearbyPosition(player))
         end
     elseif r < 0.6 then
@@ -37,11 +37,11 @@ function RottenIsaac.SpawnFriends()
         pooter:AddCharmed(EntityRef(pooter), -1)
     elseif r < 0.8 then
         -- 1-2 charmed small maggots and 1-2 charmed small leeches
-        for i=1,Helper.OneIndexedRandom(2) do
+        for i=1,Helper.OneIndexedRandom(CadaverRNG, 2) do
             local maggot = Isaac.Spawn(EntityType.ENTITY_SMALL_MAGGOT, 0, 0, Helper.RandomNearbyPosition(player), Vector(0,0), nil)
             maggot:AddCharmed(EntityRef(maggot), -1)
         end
-        for i=1,Helper.OneIndexedRandom(2) do
+        for i=1,Helper.OneIndexedRandom(CadaverRNG, 2) do
             local leech = Isaac.Spawn(EntityType.ENTITY_SMALL_LEECH, 0, 0, Helper.RandomNearbyPosition(player), Vector(0,0), nil)
             leech:AddCharmed(EntityRef(leech), -1)
         end
@@ -54,6 +54,7 @@ end
 
 function RottenIsaac.ReplaceHearts(pickup)
     local player = Isaac.GetPlayer(0)
+    CadaverItemRNG:SetSeed(pickup.DropSeed, 0)
     if player:GetPlayerType() == PlayerType.PLAYER_CADAVER then
         -- Bail if we're in the secret room that only allows red hearts
         local room = Game():GetLevel():GetCurrentRoomDesc().Data
@@ -63,7 +64,7 @@ function RottenIsaac.ReplaceHearts(pickup)
             if pickup:IsShopItem() then
                 pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN, true)
             else
-                if CadaverRNG:RandomFloat() < 0.05 then
+                if CadaverItemRNG:RandomFloat() < 0.05 then
                     pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE, false, false, true)
                 else
                     pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_ROTTEN, false, false, true)
@@ -131,7 +132,7 @@ function RottenIsaac.Birthright(player)
         local entities = Isaac:GetRoomEntities()
         for i, entity in ipairs(entities) do
             if entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.BLUE_FLY and entity.SubType == 0 then
-                Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, Helper.OneIndexedRandom(5), entity.Position, entity.Velocity, nil)
+                Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, Helper.OneIndexedRandom(CadaverRNG, 5), entity.Position, entity.Velocity, nil)
                 entity:Remove()
             end
         end
