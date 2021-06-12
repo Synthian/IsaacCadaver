@@ -49,7 +49,7 @@ function CustomSouls.UseGoldenSoul(player)
     local soul = SOUL_CARDS[Helper.OneIndexedRandom(CadaverRNG, #SOUL_CARDS)]
     player:UseCard(soul)
     if CadaverRNG:RandomFloat() < GOLDEN_SOUL_CHANCE then
-        player:SetCard(0, Card.CARD_SOUL_GOLDEN)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_SOUL_GOLDEN, Helper.RandomNearbyPosition(player), Vector(0,0), nil)
     end
 end
 
