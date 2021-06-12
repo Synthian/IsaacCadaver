@@ -51,7 +51,7 @@ One time use active. When used, gain a permanent 3x damage multiplier and 0.5x t
 
 ### Golden Soul
 *Defeat The Beast as Cadaver*  
-Activates a random soul effect, excluding Soul of Lazarus. Has a 60% chance to remain in Isaac's pocket after use.
+Activates a random soul effect, excluding Soul of Lazarus. Has a 60% chance to spawn another Golden Soul.
 
 ### Rotten Chests
 *Defeat Mega Satan as Cadaver*  
@@ -63,6 +63,6 @@ Rotten pickups: 2 rotten hearts, 1 bone heart, 1 "rotten" trinket
 
 ## Known Issues
 * If a Soul of Cadaver or Golden Soul *would* have spawned but are not unlocked, they are replaced with a Rune Shard to prevent spawning souls you do not already have. I'd like to find a way to work around this.
-* Completion marks do not display on the main menu, even though they are being tracked.
+* Completion marks do not display on the main menu, even though they are being tracked. There are other mods to add completion marks to modded characters.
 * Several effects ignore item unlocks. For instance, you can obtain bone hearts before unlocking them. I am not aware of a way to avoid this.
 * Achievements show up immediately upon a boss dying, rather than after the run has completed / in between stages. I am not aware of a way to avoid this.
