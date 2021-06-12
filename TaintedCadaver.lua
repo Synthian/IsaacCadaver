@@ -13,9 +13,10 @@ end
 
 -- # STATS #
 
+local MAX_HEALTH = 4
 local TAINTED_CADAVER_STATS = {
   STATIC_TEAR_DELAY = 5.0,
-  DAMAGE_MULTIPLIER = 0.5
+  DAMAGE_MULTIPLIER = 0.6
 }
 
 local lastItemDamage = -1.0
@@ -239,8 +240,8 @@ function TaintedCadaver.ConvertHealth(player)
 
     -- Limit Max Bone Hearts
     local boneHearts = player:GetBoneHearts()
-    if boneHearts > 3 then
-      player:AddBoneHearts(3 - boneHearts)
+    if boneHearts > MAX_HEALTH then
+      player:AddBoneHearts(MAX_HEALTH - boneHearts)
     end
   end
 end
