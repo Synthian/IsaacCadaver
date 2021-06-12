@@ -57,8 +57,6 @@ end
 
 EntityFlag.FLAG_CADAVER_PET = 1<<61
 
-local PET_COOLDOWN = 120
-
 local SOLDIER_TYPE = {
   SMALL_MAGGOT = { Type = EntityType.ENTITY_SMALL_MAGGOT, Variant = 0, SubType = 0 },
   SMALL_LEECH = { Type = EntityType.ENTITY_SMALL_LEECH, Variant = 0, SubType = 0 },
@@ -73,7 +71,7 @@ local SOLDIER_TYPE = {
   POOTER = { Type = EntityType.ENTITY_POOTER, Variant = 0, SubType = 0 },
   SUPER_POOTER = { Type = EntityType.ENTITY_POOTER, Variant = 1, SubType = 0 },
   MAZE_ROAMER = { Type = EntityType.ENTITY_MAZE_ROAMER, Variant = 0, SubType = 0 },
-  VIS = { Type = EntityType.ENTITY_VIS, Variant = 0, SubType = 1 }
+  VIS = { Type = EntityType.ENTITY_VIS, Variant = 0, SubType = 0 }
 }
 
 local ARMY_LEVELS = {
@@ -83,37 +81,56 @@ local ARMY_LEVELS = {
   { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.7 },
+  { Entity = SOLDIER_TYPE.CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DROWNED_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DANK_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.CARRION_PRINCESS, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTEST, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTEST, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.VIS, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.DROWNED_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.7 },
+  { Entity = SOLDIER_TYPE.CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DROWNED_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DANK_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.CARRION_PRINCESS, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTEST, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.VIS, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.4 },
+  { Entity = SOLDIER_TYPE.CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DROWNED_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DANK_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.CARRION_PRINCESS, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTEST, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.VIS, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
   { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.EVIS, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.4 },
-  { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTEST, Cooldown = PET_COOLDOWN, Scale = 0.4 },
-  { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.DANK_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.7 },
-  { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.4 },
-  { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.4 },
-  { Entity = SOLDIER_TYPE.SMALL_LEECH, Cooldown = PET_COOLDOWN, Scale = 1 },
-  { Entity = SOLDIER_TYPE.SMALL_MAGGOT, Cooldown = PET_COOLDOWN, Scale = 1 }
+  { Entity = SOLDIER_TYPE.CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DROWNED_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.DANK_CHARGER, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.CARRION_PRINCESS, Cooldown = PET_COOLDOWN, Scale = 0.8 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_NORMAL, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTER, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.ROTTEN_GAPER_FASTEST, Cooldown = PET_COOLDOWN, Scale = 0.5 },
+  { Entity = SOLDIER_TYPE.VIS, Cooldown = PET_COOLDOWN, Scale = 1 }
 }
 
-local currentLevel = 3
-local bankedSoulHearts = 0
+local PET_COOLDOWN = 90
+local STARTING_LEVEL = 4
+local STARTING_BANK = -1
+local MAX_LEVEL = #ARMY_LEVELS
+
+local currentLevel = STARTING_LEVEL
+local bankedSoulHearts = STARTING_BANK
 local initialized = false
 
 function TaintedCadaver.ManageArmy(player)
@@ -124,20 +141,9 @@ function TaintedCadaver.ManageArmy(player)
     army[i] = false
   end
 
-  if Isaac:CountEnemies() < 1 then
-    for i=1,#army do
-      if ARMY_LEVELS[i].Entity.Type == EntityType.ENTITY_EVIS then
-        army[i] = true
-        ARMY_LEVELS[i].Cooldown = PET_COOLDOWN
-      end
-    end
-  end
-
   local entities = Isaac:GetRoomEntities()
   for i, entity in ipairs(entities) do
-    if entity.Type == EntityType.ENTITY_EVIS and Isaac:CountEnemies() < 1 then
-      entity:Die()
-    elseif entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
+    if entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
       for i=1,#army do
         if not army[i] and entity.Type == ARMY_LEVELS[i].Entity.Type and entity.Variant == ARMY_LEVELS[i].Entity.Variant and entity.SubType == ARMY_LEVELS[i].Entity.SubType then
           army[i] = true
@@ -155,6 +161,11 @@ function TaintedCadaver.ManageArmy(player)
         soldier:ToNPC().Scale = ARMY_LEVELS[i].Scale
         soldier:AddEntityFlags(EntityFlag.FLAG_CADAVER_PET)
         soldier:AddCharmed(EntityRef(player), -1)
+        if (soldier.Type == EntityType.ENTITY_VIS) then
+          soldier:GetSprite():ReplaceSpritesheet(0, "gfx/monsters/classic/monster_176_cagevis.png")
+          soldier:GetSprite():ReplaceSpritesheet(1, "gfx/monsters/classic/monster_176_cagevis.png")
+          soldier:GetSprite():LoadGraphics()
+        end
       elseif (player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) then
         ARMY_LEVELS[i].Cooldown = ARMY_LEVELS[i].Cooldown + 1
       end
@@ -188,21 +199,49 @@ function TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFr
   return true
 end
 
+function TaintedCadaver:InitSoldierLasers(laser)
+  if laser.SpawnerEntity ~= nil and laser.SpawnerEntity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
+    laser:SetColor(Color(0.3, 0.5, 0.4, 1, 0.3, 0.5, 0.4), 1000, 1, false, false)
+  end
+end
+
 function TaintedCadaver.ConvertHealth(player)
   if player:GetBlackHearts() == 0 and player:GetEffectiveMaxHearts() == 0 and player:GetEternalHearts() == 0 and player:GetSoulHearts() == 1 then
-    player:AddBoneHearts(1)
-    player:AddHearts(2)
+    player:AddBoneHearts(2)
+    player:AddHearts(4)
   else
+    -- Convert Hearts to Rotten
     local hearts = player:GetHearts()
     local rottenHearts = player:GetRottenHearts()
     local rottenReplacements = hearts - (rottenHearts * 2) 
     player:AddHearts(-rottenReplacements)
     player:AddRottenHearts(rottenReplacements)
+
+    -- Take away soul hearts for army levels
     local soulHearts = player:GetSoulHearts()
     player:AddSoulHearts(-soulHearts)
-    -- Handle army level ups
-    bankedSoulHearts = soulHearts % 2
+    bankedSoulHearts = bankedSoulHearts + soulHearts % 2
     currentLevel = currentLevel + math.floor(soulHearts / 2)
+    if bankedSoulHearts > 1 then
+      bankedSoulHearts = bankedSoulHearts % 2
+      currentLevel = currentLevel + math.floor(bankedSoulHearts / 2)
+    end
+    if currentLevel > MAX_LEVEL then
+      currentLevel = MAX_LEVEL
+    end
+
+    -- Convert heart containers to bone hearts
+    local containers = player:GetMaxHearts()
+    local boneReplacements = math.floor(containers / 2)
+    player:AddMaxHearts(-containers, true)
+    player:AddBoneHearts(boneReplacements)
+    player:AddHearts(boneReplacements)
+
+    -- Limit Max Bone Hearts
+    local boneHearts = player:GetBoneHearts()
+    if boneHearts > 3 then
+      player:AddBoneHearts(3 - boneHearts)
+    end
   end
 end
 
@@ -239,8 +278,8 @@ end
 
 function TaintedCadaver.Reset(isContinued)
   if not isContinued then
-    currentLevel = 3
-    bankedSoulHearts = 0
+    currentLevel = STARTING_LEVEL
+    bankedSoulHearts = STARTING_BANK
     for i=1,#ARMY_LEVELS do
       ARMY_LEVELS[i].Cooldown = PET_COOLDOWN
     end

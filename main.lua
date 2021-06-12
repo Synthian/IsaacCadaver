@@ -75,12 +75,6 @@ function Cadaver:ModifyCollectible(itemPoolType, decrease, seed)
 end
 Cadaver:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Cadaver.ModifyCollectible)
 
--- # TEAR INIT #
-function Cadaver:TearInit(tear)
-    
-end
-Cadaver:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, Cadaver.TearInit)
-
 -- # EFFECT UPDATES (Every frame) #
 function Cadaver:EffectUpdate(player)
     Vestments.UpdateVestmentsEffect(player)
@@ -109,6 +103,12 @@ function Cadaver:TaintedCadaverArmyDamage(entity, amount, flags, source, countdo
     return TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
 end
 Cadaver:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Cadaver.TaintedCadaverArmyDamage)
+
+-- # POST LASER INIT #
+function Cadaver:PostLaserInit(laser)
+    TaintedCadaver:InitSoldierLasers(laser)
+end
+Cadaver:AddCallback(ModCallbacks.MC_POST_LASER_INIT, Cadaver.PostLaserInit)
 
 -- # POST PLAYER INIT #
 function Cadaver:PlayerInit(player)

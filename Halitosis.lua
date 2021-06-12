@@ -24,7 +24,7 @@ function Halitosis.UpdateHalitosisEffect(player)
     if currentDuration % 5 == 0 then
       local aimDirection = Vector(0,0)
       
-      local tear = player:FireTear(player.Position, AIM_VECTORS[player:GetHeadDirection()] * 10, false, true, false, player, 2)
+      local tear = player:FireTear(player.Position + (AIM_VECTORS[player:GetHeadDirection()] * 10), AIM_VECTORS[player:GetHeadDirection()] * 10, false, true, false, player, 2)
       tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING | TearFlags.TEAR_POISON | TearFlags.TEAR_FEAR
       local sprite = tear:GetSprite()
       sprite:Load("gfx/halitosis_tear.anm2", true)

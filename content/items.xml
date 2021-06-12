@@ -3,5 +3,5 @@
 	<active name="Forbidden Fruit" description="Knowledge brings mortality" gfx="ForbiddenFruit.png" maxcharges="0" cache="damage firedelay" quality="3" tags="nolostbr" />
 	<passive name="Cadaver's Left Eye" description="Fixed tears + damage up" gfx="RottenFlesh.png" cache="damage firedelay" quality="3" tags="offensive" />
 	<trinket name="Probiotics" description="Germs are good!" gfx="Probiotics.png" />
-	<active name="Halitosis" description="You really should brush more" gfx="RottenFlesh.png" chargetype="timed" maxcharges="300" quality="3" />
+	<active name="Halitosis" description="You really should brush more" gfx="RottenFlesh.png" chargetype="timed" maxcharges="240" quality="3" />
 </items>
