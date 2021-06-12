@@ -1,12 +1,18 @@
 local Halitosis = {}
 
 CollectibleType.COLLECTIBLE_HALITOSIS = Isaac.GetItemIdByName("Halitosis")
+-- Custom sounds are currently bugged in Repentance. Will activate this sfx when it's fixed
+SoundEffect.HALITOSIS = Isaac.GetSoundIdByName("HalitosisVocal")
 
 local MAX_DURATION = 30
 local currentDuration = 0
 
 function Halitosis.Use(collectibleType, RNG, player, useFlags, slot)
-  currentDuration = MAX_DURATION
+  if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
+    currentDuration = MAX_DURATION * 2
+  else
+    currentDuration = MAX_DURATION
+  end
   SFXManager():Play(SoundEffect.SOUND_BEAST_FIRE_BARF, 1, 2, false, 1, 0)
 end
 

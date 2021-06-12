@@ -159,7 +159,11 @@ function TaintedCadaver.ManageArmy(player)
       if ARMY_LEVELS[i].Cooldown >= PET_COOLDOWN then
         ARMY_LEVELS[i].Cooldown = 0
         local soldier = Isaac.Spawn(ARMY_LEVELS[i].Entity.Type, ARMY_LEVELS[i].Entity.Variant, ARMY_LEVELS[i].Entity.SubType, player.Position, Vector(0,0), nil)
-        soldier:ToNPC().Scale = ARMY_LEVELS[i].Scale
+        if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
+          soldier:ToNPC().Scale = ARMY_LEVELS[i].Scale * 1.25
+        else
+          soldier:ToNPC().Scale = ARMY_LEVELS[i].Scale
+        end
         soldier:AddEntityFlags(EntityFlag.FLAG_CADAVER_PET)
         soldier:AddCharmed(EntityRef(player), -1)
         if (soldier.Type == EntityType.ENTITY_VIS) then
@@ -187,13 +191,21 @@ function TaintedCadaver.KillArmy()
   end
 end
 
+local SOLDIER_DAMAGE = 3.0
+local VIS_SOLDIER_DAMAGE = 1.0
+
 function TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
   if source ~= nil and source.Entity ~= nil and source.Entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
     local player = Isaac.GetPlayer(0)
+    local damageMultiplier = 1
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
+      damageMultiplier = 1.5
+    end
+
     if source.Entity.Type == EntityType.ENTITY_VIS then
-      entity:TakeDamage(1.0, 0, EntityRef(player), 0)
+      entity:TakeDamage(VIS_SOLDIER_DAMAGE * damageMultiplier, 0, EntityRef(player), 0)
     else
-      entity:TakeDamage(3.0, 0, EntityRef(player), 0)
+      entity:TakeDamage(SOLDIER_DAMAGE * damageMultiplier, 0, EntityRef(player), 0)
     end
     return false
   end
@@ -272,18 +284,19 @@ function TaintedCadaver.Exit()
   local entities = Isaac:GetRoomEntities()
   for i, entity in ipairs(entities) do
     if entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
-      entity:Die()
+      entity:ToNPC():Morph(EntityType.ENTITY_EFFECT, EffectVariant.EFFECT_NULL, 0, -1)
     end
   end
 end
 
 function TaintedCadaver.Reset(isContinued)
+  for i=1,#ARMY_LEVELS do
+    ARMY_LEVELS[i].Cooldown = PET_COOLDOWN
+  end
+
   if not isContinued then
     currentLevel = STARTING_LEVEL
-    bankedSoulHearts = STARTING_BANK
-    for i=1,#ARMY_LEVELS do
-      ARMY_LEVELS[i].Cooldown = PET_COOLDOWN
-    end
+    bankedSoulHearts = STARTING_BANK  
   end
   initialized = true
 end

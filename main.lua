@@ -6,7 +6,7 @@ local Probiotics = require("Probiotics")
 local RottenIsaac = require("RottenIsaac")
 local Halitosis = include("Halitosis")
 local TaintedCadaver = include("TaintedCadaver")
-local CustomSouls = require("CustomSouls")  
+local CustomSouls = include("CustomSouls")  
 local RottenChest = require("RottenChest")
 local ItemPools = require("ItemPools")
 local json = require("json")
@@ -155,6 +155,7 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_UPDATE, Cadaver.Update)
 -- # GAME EXIT #
 function Cadaver:Exit(shouldSave)
     Vestments.Exit()
+    TaintedCadaver.Exit()
     local saveData = {
         ForbiddenFruit = ForbiddenFruit.SaveData(),
         Vestments = Vestments.SaveData(),
