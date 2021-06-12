@@ -1,4 +1,4 @@
-local Helper = include("Helper")
+local Helper = require("Helper")
 local RottenIsaac = {}
 
 PlayerType.PLAYER_CADAVER = Isaac.GetPlayerTypeByName("Cadaver")

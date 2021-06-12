@@ -1,5 +1,5 @@
-local RottenIsaac = include("RottenIsaac")
-local json = include("json")
+local RottenIsaac = require("RottenIsaac")
+local json = require("json")
 local Cadaver = RegisterMod("Cadaver Standalone", 1)
 
 CadaverRNG = RNG()

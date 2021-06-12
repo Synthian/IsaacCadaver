@@ -16,7 +16,7 @@ Cadaver can pickup soul hearts, but they are immediately removed to spawn friend
 Birthright turns all current and future blue flies into locusts!
 
 Cadaver starts with Yuck Heart. Use it in combat or in Curse Rooms to hold on to your bone hearts.</description>
-    <version>1.1</version>
+    <version>1.2</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Player Characters"/>
