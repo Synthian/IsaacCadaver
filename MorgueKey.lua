@@ -152,4 +152,20 @@ function MorgueKey.Reset(isContinued)
   end
 end
 
+function MorgueKey.LoadData(table)
+  if table ~= nil then
+    lastWinItems = table.lastWinItems
+    lastCharacter = table.lastCharacter
+    morgueItems = table.morgueItems
+  end
+end
+
+function MorgueKey.SaveData()
+  return {
+    lastWinItems = lastWinItems,
+    lastCharacter = lastCharacter,
+    morgueItems = morgueItems
+  }
+end
+
 return MorgueKey

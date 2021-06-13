@@ -8,6 +8,8 @@ PlayerType.PLAYER_TAINTED_CADAVER = Isaac.GetPlayerTypeByName("Cadaver", true)
 -- # SETUP #
 
 function TaintedCadaver.PlayerInit(player)
+  local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
+  player:AddNullCostume(cadaverCostume)
   player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS)
 end
 
@@ -55,8 +57,6 @@ function TaintedCadaver.ModifyStats(player, cacheFlag)
 end
 
 -- # ARMY #
-
-EntityFlag.FLAG_CADAVER_PET = 1<<61
 
 local SOLDIER_TYPE = {
   SMALL_MAGGOT = { Type = EntityType.ENTITY_SMALL_MAGGOT, Variant = 0, SubType = 0 },
@@ -125,6 +125,9 @@ local ARMY_LEVELS = {
   { Entity = SOLDIER_TYPE.VIS, Cooldown = PET_COOLDOWN, Scale = 1 }
 }
 
+EntityFlag.FLAG_CADAVER_PET = 1<<61
+local SOLDIER_DAMAGE = 3.0
+local VIS_SOLDIER_DAMAGE = 1.0
 local PET_COOLDOWN = 90
 local STARTING_LEVEL = 4
 local STARTING_BANK = -1
@@ -191,9 +194,6 @@ function TaintedCadaver.KillArmy()
   end
 end
 
-local SOLDIER_DAMAGE = 3.0
-local VIS_SOLDIER_DAMAGE = 1.0
-
 function TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
   if source ~= nil and source.Entity ~= nil and source.Entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
     local player = Isaac.GetPlayer(0)
@@ -217,6 +217,8 @@ function TaintedCadaver:InitSoldierLasers(laser)
     laser:SetColor(Color(0.3, 0.5, 0.4, 1, 0.3, 0.5, 0.4), 1000, 1, false, false)
   end
 end
+
+-- # HEALTH #
 
 function TaintedCadaver.ConvertHealth(player)
   if player:GetBlackHearts() == 0 and player:GetEffectiveMaxHearts() == 0 and player:GetEternalHearts() == 0 and player:GetSoulHearts() == 1 then
@@ -279,6 +281,8 @@ function TaintedCadaver.ReplaceHearts(pickup)
   end
 end
 
+-- # EXIT SAVE ETC. #
+
 function TaintedCadaver.Exit()
   initialized = false
   local entities = Isaac:GetRoomEntities()
@@ -301,13 +305,18 @@ function TaintedCadaver.Reset(isContinued)
   initialized = true
 end
 
--- # TESTING / DEBUGGING #
-
-function TaintedCadaver.Spawn(option)
-  local player = Isaac.GetPlayer(0)
-  local friend = Isaac.Spawn(SPAWN_OPTIONS[option].Type, SPAWN_OPTIONS[option].Variant, 0, Helper.RandomNearbyPosition(player), Vector(0,0), nil)
-  friend:AddCharmed(EntityRef(friend), -1)
+function TaintedCadaver.LoadData(table)
+  if table ~= nil then
+    currentLevel = table.currentLevel
+    bankedSoulHearts = table.bankedSoulHearts
+  end
 end
+
+function TaintedCadaver.SaveData()
+  return { currentLevel = currentLevel, bankedSoulHearts = bankedSoulHearts }
+end
+
+-- # TESTING / DEBUGGING #
 
 function TaintedCadaver.GetArmyStats()
   print("Army Level: " .. currentLevel)

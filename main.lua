@@ -28,6 +28,8 @@ function Cadaver:StartRun(isContinued)
         Vestments.LoadData(table.Vestments)
         Achievements.LoadData(table.CadaverAchievements)
         ItemPools.LoadData(table.ItemPools)
+        TaintedCadaver.LoadData(table.TaintedCadaver)
+        MorgueKey.LoadData(table.MorgueKey)
     else
         Achievements.Reset()
     end
@@ -101,7 +103,7 @@ function Cadaver:TaintedCadaverEffectUpdate(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.TaintedCadaverEffectUpdate, PlayerType.PLAYER_TAINTED_CADAVER)
 
--- # TAINTED CADAVER ARMY DAMAGE #
+-- # ENTITY TAKES DAMAGE #
 function Cadaver:TaintedCadaverArmyDamage(entity, amount, flags, source, countdownFrames)
     return TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
 end
@@ -128,7 +130,6 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, Cadaver.PlayerInit)
 -- # STAT UPDATES #
 function Cadaver:ModifyStats(player, cacheFlag)
     Probiotics.ModifyStats(player, cacheFlag)
-    -- Halitosis.ModifyStats(player, cacheFlag)
     ForbiddenFruit.ModifyStats(player, cacheFlag)
     RottenFlesh.ModifyStats(player, cacheFlag)
     RottenIsaac.ModifyStats(player, cacheFlag)
@@ -164,7 +165,9 @@ function Cadaver:Exit(shouldSave)
         ForbiddenFruit = ForbiddenFruit.SaveData(),
         Vestments = Vestments.SaveData(),
         CadaverAchievements = Achievements.SaveData(),
-        ItemPools = ItemPools.SaveData()
+        ItemPools = ItemPools.SaveData(),
+        TaintedCadaver = TaintedCadaver.SaveData(),
+        MorgueKey = MorgueKey.SaveData()
     }
     Cadaver:SaveData(json.encode(saveData))
 end
@@ -223,8 +226,6 @@ function Cadaver:OnCommand(command, args)
         Achievements.UnlockAll()
     elseif command == "cd_listunlock" then
         Achievements.ReadOut()
-    elseif command == "cd_spawn" then
-        TaintedCadaver.Spawn(args)
     elseif command == "cd_army" then
         TaintedCadaver.GetArmyStats()
     elseif command == "cd_entities" then
