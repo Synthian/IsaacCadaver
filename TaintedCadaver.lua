@@ -10,7 +10,6 @@ PlayerType.PLAYER_TAINTED_CADAVER = Isaac.GetPlayerTypeByName("Cadaver", true)
 function TaintedCadaver.PlayerInit(player)
   local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
   player:AddNullCostume(cadaverCostume)
-  player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS)
 end
 
 -- # STATS #
@@ -299,6 +298,10 @@ function TaintedCadaver.Reset(isContinued)
   end
 
   if not isContinued then
+    local player = Isaac.GetPlayer(0)
+    if player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then
+      player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS)
+    end
     currentLevel = STARTING_LEVEL
     bankedSoulHearts = STARTING_BANK  
   end
