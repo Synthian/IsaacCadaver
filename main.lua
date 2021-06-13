@@ -6,6 +6,7 @@ local Probiotics = require("Probiotics")
 local RottenIsaac = require("RottenIsaac")
 local Halitosis = include("Halitosis")
 local TaintedCadaver = include("TaintedCadaver")
+local MorgueKey = include("MorgueKey")
 local CustomSouls = include("CustomSouls")  
 local RottenChest = require("RottenChest")
 local ItemPools = require("ItemPools")
@@ -35,6 +36,7 @@ function Cadaver:StartRun(isContinued)
     ForbiddenFruit.Reset(isContinued)
     ItemPools.Reset(isContinued)
     TaintedCadaver.Reset(isContinued)
+    MorgueKey.Reset(isContinued)
 
     -- Evaluate stats after everything has been setup
     local player = Isaac.GetPlayer(0)
@@ -81,6 +83,7 @@ function Cadaver:EffectUpdate(player)
     ForbiddenFruit.UpdateForbiddenFruitEffect(player)
     Probiotics.UpdateProbioticsEffect(player)
     Halitosis.UpdateHalitosisEffect(player)
+    MorgueKey.UpdateMorgueKeyEffect(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.EffectUpdate)
 
@@ -137,6 +140,7 @@ Cadaver:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Cadaver.ModifyStats)
 function Cadaver:EnterRoom()
     Vestments.SwapVestmentsItem()
     RottenChest.RemoveOpenChests()
+    MorgueKey.InitRoom()
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Cadaver.EnterRoom)
 
@@ -166,6 +170,12 @@ function Cadaver:Exit(shouldSave)
 end
 Cadaver:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, Cadaver.Exit)
 
+-- # POST GAME END #
+function Cadaver:PostGameEnd(isGameOver)
+    MorgueKey.SaveItems(isGameOver)
+end
+Cadaver:AddCallback(ModCallbacks.MC_POST_GAME_END, Cadaver.PostGameEnd)
+
 -- ###### SPECIFIC ITEMS ######
 
 -- # GOLDEN SOUL USAGE #
@@ -192,6 +202,12 @@ function Cadaver:UseHalitosis(collectibleType, RNG, player, useFlags, slot)
     TaintedCadaver.KillArmy()
 end
 Cadaver:AddCallback(ModCallbacks.MC_USE_ITEM, Cadaver.UseHalitosis, CollectibleType.COLLECTIBLE_HALITOSIS)
+
+-- # MORGUE KEY USAGE #
+function Cadaver:UseMorgueKey(collectibleType, RNG, player, useFlags, slot)
+    return MorgueKey.Use(collectibleType, RNG, player, useFlags, slot)
+end
+Cadaver:AddCallback(ModCallbacks.MC_USE_ITEM, Cadaver.UseMorgueKey, CollectibleType.COLLECTIBLE_MORGUE_KEY)
 
 -- # ROTTEN CHEST COLLISION #
 function Cadaver:RottenChestCollision(pickup, collider, low)
