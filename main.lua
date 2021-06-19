@@ -1,5 +1,7 @@
 local Achievements = require("Achievements")
 local RottenFlesh = require("RottenFlesh")
+local TechDrones = include("TechDrones")
+local HydrochloricAcid = include("HydrochloricAcid")
 local Vestments = require("Vestments")
 local ForbiddenFruit = require("ForbiddenFruit")
 local Probiotics = require("Probiotics")
@@ -103,9 +105,19 @@ function Cadaver:TaintedCadaverEffectUpdate(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.TaintedCadaverEffectUpdate, PlayerType.PLAYER_TAINTED_CADAVER)
 
+-- # TECH DRONES UPDATE #
+function Cadaver:TechDroneUpdate(familiar)
+    TechDrones.Update(familiar)
+end
+Cadaver:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, Cadaver.TechDroneUpdate, FamiliarVariant.TECH_DRONES)
+
 -- # ENTITY TAKES DAMAGE #
 function Cadaver:TaintedCadaverArmyDamage(entity, amount, flags, source, countdownFrames)
-    return TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
+    if not TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames) then return false end
+    if not TechDrones.LaserDamage(entity, amount, flags, source, countdownFrames) then return false end
+
+    HydrochloricAcid.ItemDamage(entity, amount, flags, source, countdownFrames)
+    return nil
 end
 Cadaver:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, Cadaver.TaintedCadaverArmyDamage)
 
@@ -134,6 +146,7 @@ function Cadaver:ModifyStats(player, cacheFlag)
     RottenFlesh.ModifyStats(player, cacheFlag)
     RottenIsaac.ModifyStats(player, cacheFlag)
     TaintedCadaver.ModifyStats(player, cacheFlag)
+    TechDrones.UpdateCache(player, cacheFlag)
 end
 Cadaver:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Cadaver.ModifyStats)
 
@@ -144,6 +157,18 @@ function Cadaver:EnterRoom()
     MorgueKey.InitRoom()
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, Cadaver.EnterRoom)
+
+-- # RENDER NPC #
+function Cadaver:NpcRender(npc, renderOffset)
+    HydrochloricAcid.Render(npc, renderOffset)
+end
+Cadaver:AddCallback(ModCallbacks.MC_POST_NPC_RENDER, Cadaver.NpcRender)
+
+-- # UPDATE NPC #
+function Cadaver:NpcUpdate(npc)
+    HydrochloricAcid.Update(npc)
+end
+Cadaver:AddCallback(ModCallbacks.MC_NPC_UPDATE, Cadaver.NpcUpdate)
 
 -- # RENDER #
 function Cadaver:Render()
@@ -231,7 +256,7 @@ function Cadaver:OnCommand(command, args)
     elseif command == "cd_entities" then
         local entities = Isaac:GetRoomEntities()
         for i, entity in ipairs(entities) do
-            print("Type " .. entity.Type .. "Variant " .. entity.Variant .. "SubType " .. entity.SubType)
+            Isaac.DebugString("Type " .. entity.Type .. " Variant " .. entity.Variant .. " SubType " .. entity.SubType)
         end
     end
 end

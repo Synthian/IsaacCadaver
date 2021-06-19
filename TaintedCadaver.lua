@@ -202,9 +202,9 @@ function TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFr
     end
 
     if source.Entity.Type == EntityType.ENTITY_VIS then
-      entity:TakeDamage(VIS_SOLDIER_DAMAGE * damageMultiplier, 0, EntityRef(player), 0)
+      entity:TakeDamage(VIS_SOLDIER_DAMAGE * damageMultiplier, 0, EntityRef(nil), 0)
     else
-      entity:TakeDamage(SOLDIER_DAMAGE * damageMultiplier, 0, EntityRef(player), 0)
+      entity:TakeDamage(SOLDIER_DAMAGE * damageMultiplier, 0, EntityRef(nil), 0)
     end
     return false
   end
