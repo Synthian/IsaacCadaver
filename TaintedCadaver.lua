@@ -8,7 +8,7 @@ PlayerType.PLAYER_TAINTED_CADAVER = Isaac.GetPlayerTypeByName("Cadaver", true)
 -- # SETUP #
 
 function TaintedCadaver.PlayerInit(player)
-  local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
+  local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/tainted_cadaver.anm2")
   player:AddNullCostume(cadaverCostume)
 end
 
