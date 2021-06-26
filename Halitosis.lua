@@ -27,6 +27,7 @@ function Halitosis.UpdateHalitosisEffect(player)
     player.FireDelay = player.MaxFireDelay
     currentDuration = currentDuration - 1
 
+    -- Fire every 5th frame
     if currentDuration % 5 == 0 then
       local aimDirection = Vector(0,0)
       

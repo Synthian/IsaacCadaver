@@ -9,43 +9,43 @@ local fruitActive = false
 local ticksSinceLastDamage = 0
 
 function ForbiddenFruit.Reset(isContinued)
-    if not isContinued then
-        fruitActive = false
-    end
+  if not isContinued then
+    fruitActive = false
+  end
 end
 
 function ForbiddenFruit.LoadData(table)
-    fruitActive = table.fruitActive
+  fruitActive = table.fruitActive
 end
 
 function ForbiddenFruit.SaveData()
-    return { fruitActive = fruitActive }
+  return { fruitActive = fruitActive }
 end
 
 function ForbiddenFruit.Use()
-    fruitActive = true
-    return { Remove = true, ShowAnim = true }
+  fruitActive = true
+  return { Remove = true, ShowAnim = true }
 end
 
 function ForbiddenFruit.ModifyStats(player, cacheFlag)
-    if fruitActive then
-        if cacheFlag == CacheFlag.CACHE_FIREDELAY then
-            player.MaxFireDelay = player.MaxFireDelay * TEAR_DELAY_MULTIPLIER
-        elseif cacheFlag == CacheFlag.CACHE_DAMAGE then
-            player.Damage = player.Damage * DAMAGE_MULTIPLIER
-        end
+  if fruitActive then
+    if cacheFlag == CacheFlag.CACHE_FIREDELAY then
+      player.MaxFireDelay = player.MaxFireDelay * TEAR_DELAY_MULTIPLIER
+    elseif cacheFlag == CacheFlag.CACHE_DAMAGE then
+      player.Damage = player.Damage * DAMAGE_MULTIPLIER
     end
+  end
 end
 
 function ForbiddenFruit.UpdateForbiddenFruitEffect(player)
-    if fruitActive then
-        if ticksSinceLastDamage > TICKS_PER_DAMAGE then
-            player:TakeDamage(1, 0, EntityRef(player), 0)
-            ticksSinceLastDamage = 0
-        else
-            ticksSinceLastDamage = ticksSinceLastDamage + 1
-        end
+  if fruitActive then
+    if ticksSinceLastDamage > TICKS_PER_DAMAGE then
+      player:TakeDamage(1, 0, EntityRef(player), 0)
+      ticksSinceLastDamage = 0
+    else
+      ticksSinceLastDamage = ticksSinceLastDamage + 1
     end
+  end
 end
 
 return ForbiddenFruit
