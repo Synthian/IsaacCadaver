@@ -34,17 +34,20 @@ Max Health: 0 (+ 2 Bone Hearts filled with a Rotten Heart)
 ***Starting Item***   
 Halitosis (see details below)   
 
-***Passives***
+***Stat Passives***
 * Tainted Cadaver fires at a **fixed 5.0 tears per second.** All **tear pickups are converted to an equivalent damage multiplier.**
 * Tainted Cadaver has **40% reduced damage.**
 * Tainted Cadaver can **only obtain Bone Hearts and fill them with Rotten Hearts.**
 * Tainted Cadaver can only have a **maximum of four bone hearts.**
 * Items that heal Tainted Cadaver or give maximum HP will instead give Bone + Rotten Hearts.
 * Any **red hearts that spawn are converted** to Rotten Hearts, with a small chance to convert into a Bone Heart.
+* Poison, blue spiders, and some similar effects do *increased* damage. This is due to a bug in Isaac, but Tainted Cadaver is balanced around it.
+
+***Friendly Critters***
 * Tainted Cadaver **can pickup soul hearts, but they are immediately removed to spawn friendly critters**!
 * Tainted Cadaver's friendly **critters are permanent and deal 3.0 damage**
 * Using **Halitosis will respawn any dead critters** and will relocate all alive critters to Tainted Cadaver's location.
-* Poison, blue spiders, and some similar effects do *increased* damage. This is due to a bug in Isaac, but Tainted Cadaver is balanced around it.
+* If Tainted Cadaver has BFFS!, critters will do 4.5 damage.
 
 ***Birthright***  
 *Respawning friends*  
@@ -92,6 +95,8 @@ Rotten pickups: 2 rotten hearts, 1 bone heart, 1 "rotten" trinket
 *Defeat Hush and Delirium as Tainted Cadaver*  
 Active; 8 second cooldown. Fire 6 large breath tears over 1 second. These tears pierce, apply poison and fear, and deal Isaac's tear damage.  
 When used as Tainted Cadaver, respawns all allied critters at Tainted Cadaver's location.  
+  
+If Isaac has Car Battery, Halitosis fires 12 tears over 2 seconds.  
 
 ### Morgue Key [Secret Room]
 *Defeat Isaac, ???, Satan, The Lamb, and Mega Satan as Tainted Cadaver*  
