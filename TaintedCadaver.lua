@@ -194,8 +194,19 @@ function TaintedCadaver.KillArmy()
 end
 
 function TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFrames)
-  if source ~= nil and source.Entity ~= nil and source.Entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
-    local player = Isaac.GetPlayer(0)
+  local player = Isaac.GetPlayer(0)
+
+  -- Blue fly damage bug-fix
+  if source ~= nil
+      and source.Entity ~= nil
+      and source.Entity.Type == EntityType.ENTITY_FAMILIAR
+      and source.Entity.Variant == FamiliarVariant.BLUE_FLY
+      and source.Entity.SubType == 0
+      and player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then
+    entity:TakeDamage(player.Damage * 2, 0, EntityRef(nil), 0)
+    return false
+  -- Army Damage
+  elseif source ~= nil and source.Entity ~= nil and source.Entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
     local damageMultiplier = 1
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
       damageMultiplier = 1.5
