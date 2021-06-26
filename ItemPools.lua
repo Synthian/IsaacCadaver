@@ -56,9 +56,9 @@ function ItemPools.GetCollectible(itemPoolType, decrease, seed)
   elseif itemPoolType == ItemPoolType.POOL_DEVIL and not spawnHistory.ForbiddenFruit and CadaverAchievements.ForbiddenFruit and r < 0.01 then
     spawnHistory.ForbiddenFruit = true
     return CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT
-  elseif itemPoolType == ItemPoolType.POOL_SECRET and not spawnHistory.MorgueKey and CadaverAchievements.MorgueKey and r < 0.015 then
+  elseif itemPoolType == ItemPoolType.POOL_SECRET and not spawnHistory.MorgueKey and CadaverAchievements.MorgueKey and r < 0.02 then
     spawnHistory.MorgueKey = true
-    return Collectible.COLLECTIBLE_MORGUE_KEY
+    return CollectibleType.COLLECTIBLE_MORGUE_KEY
   end
   return nil
 end

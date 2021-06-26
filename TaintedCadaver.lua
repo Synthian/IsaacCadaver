@@ -1,4 +1,4 @@
-local Helper = include("Helper")
+local Helper = require("Helper")
 local json = require("json")
 
 local TaintedCadaver = {}

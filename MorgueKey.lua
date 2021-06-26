@@ -70,7 +70,7 @@ SHOPKEEPER_SPRITES[PlayerType.PLAYER_LAZARUS2_B] = "gfx/effects/t_laz_shopkeeper
 SHOPKEEPER_SPRITES[PlayerType.PLAYER_JACOB2_B] = "gfx/effects/t_jacob_shopkeeper.png"
 SHOPKEEPER_SPRITES[PlayerType.PLAYER_THESOUL_B] = "gfx/effects/t_forgotten_shopkeeper.png"
 SHOPKEEPER_SPRITES[PlayerType.PLAYER_CADAVER] = "gfx/effects/cadaver_shopkeeper.png"
-SHOPKEEPER_SPRITES[PlayerType.PLAYER_TAINTED_CADAVER] = "gfx/effects/cadaver_shopkeeper.png"
+SHOPKEEPER_SPRITES[PlayerType.PLAYER_TAINTED_CADAVER] = "gfx/effects/t_cadaver_shopkeeper.png"
 
 local lastWinItems = {}
 local lastCharacter = PlayerType.PLAYER_ISAAC
