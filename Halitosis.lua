@@ -27,12 +27,12 @@ function Halitosis.UpdateHalitosisEffect(player)
     player.FireDelay = player.MaxFireDelay
     currentDuration = currentDuration - 1
 
-    -- Fire every 5th frame
+    -- Fire every 5th
     if currentDuration % 5 == 0 then
       local aimDirection = Vector(0,0)
       
-      local tear = player:FireTear(player.Position + (AIM_VECTORS[player:GetHeadDirection()] * 10), AIM_VECTORS[player:GetHeadDirection()] * 10, false, true, false, player, 2)
-      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING | TearFlags.TEAR_POISON | TearFlags.TEAR_FEAR
+      local tear = player:FireTear(player.Position + (AIM_VECTORS[player:GetHeadDirection()] * 10), AIM_VECTORS[player:GetHeadDirection()] * 10, false, true, false, player, 1)
+      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PIERCING | TearFlags.TEAR_POISON | TearFlags.TEAR_FEAR
       tear.SizeMulti = Vector(3, 3)
       tear.SpriteScale = Vector(0.3, 0.3)
       local sprite = tear:GetSprite()
