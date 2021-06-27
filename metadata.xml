@@ -3,7 +3,7 @@
     <name>Cadaver: The Rotten Expansion</name>
     <directory>cadaver</directory>
     <id>2508822241</id>
-    <description>Cadaver is a mod for The Binding of Isaac: Repentance that adds 7 new unlocks and 1 new playable character! Explore the basement with Cadaver, Isaac's rotting corpse, and gain access to Golden Souls, Rotten Chests, and more!
+    <description>Cadaver is a mod for The Binding of Isaac: Repentance that adds 11 new unlocks, a playable character, and their tainted counterpart! Explore the basement with Cadaver, Isaac's rotting corpse, and gain access to Golden Souls, Rotten Chests, and more!
 
 [h1]CADAVER[/h1]
 Cadaver only has one rotten eye, so he can only fire at a fixed 1.5 tears per second. All tear pickups are converted to an equivalent damage multiplier.
@@ -16,7 +16,7 @@ Birthright turns all current and future blue flies into locusts!
 
 Cadaver starts with Yuck Heart. Use it in combat or in Curse Rooms to hold on to your bone hearts.
 
-[h1]UNLOCKS[/h1]
+[h1]CADAVER UNLOCKS[/h1]
 [b]Vestments[/b] [i](Defeat Isaac and ??? as Cadaver)[/i]
 [Angel Room] Gain a random Angel Room item effect in every room.
 
@@ -38,14 +38,40 @@ Activates a random soul effect. Has a chance to spawn another Golden Soul upon u
 [b]Rotten Chests[/b] [i](Defeat Mega Satan as Cadaver)[/i]
 Rarely, a normal chest will be replaced with a rotten variant that gives some additonal rotten-themed pickups. Also a chance to spawn a rotten pedestal item!
 
+[h1]TAINTED CADAVER[/h1]
+Tainted Cadaver fires at a fast, fixed tear rate. All tear pickups are converted to an equivalent damage multiplier.
+
+Tainted Cadaver has 40% reduced damage.
+
+Tainted Cadaver can only obtain [b]four[/b] Bone Hearts and fill them with Rotten Hearts. Any red hearts that spawn are converted to Rotten Hearts, with a chance to convert into a Bone Heart.
+
+Tainted Cadaver can pickup soul hearts, but they are immediately removed to spawn friendly critters! Tainted Cadaver's friendly critters are [b]permanent[/b].
+
+Tainted Cadaver starts with Halitosis. Using Halitosis will respawn any dead critters and will relocate all alive critters to Tainted Cadaver's location.
+
+When Tainted Cadaver has Birthright, his friendly units automatically respawn after 3 seconds.
+
+[h1]TAINTED CADAVER UNLOCKS[/h1]
+[b]Halitosis[/b] [i](Defeat Hush and Delirium as Tainted Cadaver)[/i]
+[Treasure Room] Active. Fire several large breath tears over 1 second. These tears pierce, apply poison and fear, and deal Isaac's tear damage.
+
+[b]Morgue Key[/b] [i](Defeat Isaac, ???, Satan, The Lamb, and Mega Satan as Tainted Cadaver)[/i]
+[Secret Room] Teleport to the Morgue. The Morgue includes a collection of pedestal items from the last completed run. Only one can be taken.
+
+[b]Tech Drones[/b] [i](Defeat Mother as Tainted Cadaver)[/i]
+[Treasure Room] Gain two familiar robots that orbit Isaac at a large distance. When Isaac fires tears, a tech laser connects the two bots.
+
+[b]Hydrochloric Acid[/b] [i](Defeat Beast as Tainted Cadaver)[/i]
+[Treasure Room] After hitting an enemy 5 times, all future attacks will deal additional flat damage.
+
 [h1]AUTHOR'S NOTE[/h1]
-A lot of the stuff I'm trying to do in this mod isn't super well supported by the modding framework. There are some quirks in the implementation (like achievement unlocks appearing instantly instead of in between floors). I've tried recreating the base game look and feel but there will almost certainly be holes.
+Thanks to everyone who has supported me during the development of this mod. I plan to continue making bug fixes and small refinements, but I am happy where the mod is now and I think it's nearing completion. Hope you all enjoy the Rotten Expansion!
 
 [h1]MORE INFO[/h1]
 To just play Cadaver (without any unlocks), install this mod instead: https://steamcommunity.com/sharedfiles/filedetails/?id=2509303609
 
 For full details, see the GitHub: https://github.com/Synthian/IsaacCadaver/blob/master/README.md</description>
-    <version>1.7</version>
+    <version>1.8</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
