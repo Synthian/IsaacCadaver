@@ -25,16 +25,18 @@ function Probiotics.ModifyStats(player, cacheFlag)
 end
 
 function Probiotics.UpdateProbioticsEffect(player)
-  if player:HasTrinket(TrinketType.TRINKET_PROBIOTICS) then
-    if not active and player:GetRottenHearts() > 0 then
-      player:AddCacheFlags(CacheFlag.CACHE_ALL)
-      player:EvaluateItems()
-    elseif active and player:GetRottenHearts() == 0 then
-      player:AddCacheFlags(CacheFlag.CACHE_ALL)
-      player:EvaluateItems()
-      active = false
-    end
+  if active and (not player:HasTrinket(TrinketType.TRINKET_PROBIOTICS) or player:GetRottenHearts() == 0) then
+    player:AddCacheFlags(CacheFlag.CACHE_ALL)
+    player:EvaluateItems()
+    active = false
+  elseif not active and player:HasTrinket(TrinketType.TRINKET_PROBIOTICS) and player:GetRottenHearts() > 0 then
+    player:AddCacheFlags(CacheFlag.CACHE_ALL)
+    player:EvaluateItems()
   end
+end
+
+function Probiotics.Reset(isContinued)
+  active = false
 end
 
 return Probiotics

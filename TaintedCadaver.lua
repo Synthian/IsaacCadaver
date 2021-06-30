@@ -203,7 +203,11 @@ function TaintedCadaver.SoldierDamage(entity, amount, flags, source, countdownFr
       and source.Entity.Variant == FamiliarVariant.BLUE_FLY
       and source.Entity.SubType == 0
       and player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then
-    entity:TakeDamage(player.Damage * 2, 0, EntityRef(nil), 0)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_HIVE_MIND) then
+      entity:TakeDamage(player.Damage * 4, 0, EntityRef(nil), 0)
+    else
+      entity:TakeDamage(player.Damage * 2, 0, EntityRef(nil), 0)
+    end
     return false
   -- Army Damage
   elseif source ~= nil and source.Entity ~= nil and source.Entity:HasEntityFlags(EntityFlag.FLAG_CADAVER_PET) then
@@ -256,11 +260,15 @@ function TaintedCadaver.ConvertHealth(player)
     end
 
     -- Convert heart containers to bone hearts
-    local containers = player:GetMaxHearts()
-    local boneReplacements = math.floor(containers / 2)
-    player:AddMaxHearts(-containers, true)
-    player:AddBoneHearts(boneReplacements)
-    player:AddHearts(boneReplacements)
+    if rottenReplacements == 0 then
+      local containers = player:GetMaxHearts()
+      local boneReplacements = math.floor(containers / 2)
+      player:AddBoneHearts(boneReplacements)
+      if (boneReplacements > 1) then
+        player:AddRottenHearts(boneReplacements - 1)
+      end
+      player:AddMaxHearts(-containers, true)
+    end
 
     -- Limit Max Bone Hearts
     local boneHearts = player:GetBoneHearts()

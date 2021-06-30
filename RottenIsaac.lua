@@ -94,6 +94,7 @@ function RottenIsaac.ConvertHealth(player)
 end
 
 function RottenIsaac.ModifyStats(player, cacheFlag)
+  if player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then return end
   if player:GetPlayerType() == PlayerType.PLAYER_CADAVER or player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH) then
     if cacheFlag == CacheFlag.CACHE_FIREDELAY or cacheFlag == CacheFlag.CACHE_DAMAGE then
       -- Just tears changed

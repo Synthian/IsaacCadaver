@@ -41,6 +41,7 @@ function Cadaver:StartRun(isContinued)
   ItemPools.Reset(isContinued)
   TaintedCadaver.Reset(isContinued)
   MorgueKey.Reset(isContinued)
+  Probiotics.Reset(isContinued)
   
   -- Evaluate stats after everything has been setup
   local player = Isaac.GetPlayer(0)
@@ -261,3 +262,19 @@ function Cadaver:OnCommand(command, args)
   end
 end
 Cadaver:AddCallback(ModCallbacks.MC_EXECUTE_CMD, Cadaver.OnCommand)
+
+-- EID Descriptions
+if EID then
+  EID:addCollectible(CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT, "!!! SINGLE USE#↑ 3x Damage up#↑ 2x Tears up#You take damage every 4 seconds#!!! This CANNOT be cured, even by resurrection, and WILL kill you!")
+  EID:addCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH, "↑ +2 Damage up#Fixes tear rate at 1.5#All tear rate modifiers are converted into an equivalent damage multiplier")
+  EID:addCollectible(CollectibleType.COLLECTIBLE_VESTMENTS, "Grants a random Angel Room item effect each room")
+  EID:addCollectible(CollectibleType.COLLECTIBLE_HALITOSIS, "Fires a barrage of large breath tears that pierce and inflict Poison and Fear")
+  EID:addCollectible(CollectibleType.COLLECTIBLE_MORGUE_KEY, "!!! SINGLE USE#Teleports you to the Morgue, a special room#It contains 4-5 items from the last successful run on pedestals#Only one can be taken")
+  EID:addCollectible(CollectibleType.COLLECTIBLE_TECH_DRONES, "Grants two robot familiars that orbit far away from you, opposite each other#When firing tears, a Technology laser connects the two")
+  EID:addCollectible(CollectibleType.COLLECTIBLE_HYDROCHLORIC_ACID, "Hitting an enemy 5 times causes them to take an additional +3 flat damage per hit")
+  EID:addTrinket(TrinketType.TRINKET_PROBIOTICS, "If you have a Rotten Heart:#↑ +1 Damage up#↑ +0.5 Tears up#↑ +0.25 Speed up#↑ +1 Luck up")
+  EID:addCard(Card.CARD_SOUL_CADAVER, "Spawns:#8 friendly Small Maggots#8 friendly Small Leeches#1 Bone Heart#2 Rotten Hearts")
+  EID:addCard(Card.CARD_SOUL_GOLDEN, "Random soul stone effect (except Soul of Lazarus)#60% chance to spawn itself again")
+  EID:addBirthright(PlayerType.PLAYER_CADAVER, "Blue flies are converted to random locusts", "Cadaver")
+  EID:addBirthright(PlayerType.PLAYER_TAINTED_CADAVER, "Dead familiars respawn after 3 seconds.", "Tainted Cadaver")
+end
