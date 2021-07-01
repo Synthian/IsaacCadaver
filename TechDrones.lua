@@ -79,7 +79,9 @@ function TechDrones.UpdateCache(player, cacheFlag)
   if cacheFlag == CacheFlag.CACHE_FAMILIARS then
     local pairs = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_TECH_DRONES)
     local entities = Isaac:GetRoomEntities()
-    pairs = pairs + player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS)
+    if (player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_DRONES)) then
+      pairs = pairs + player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS)
+    end
 
     for i, entity in ipairs(entities) do
       if entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.TECH_DRONES then
