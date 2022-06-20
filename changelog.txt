@@ -1,0 +1,32 @@
+2.3
+===
+- Several co-op fixes
+- Forbidden Fruit has been added to the demon beggar pool
+- Halitosis and Cadaver's Left Eye have been added to the rotten beggar pool
+- All items have been added to the appropriate greed pools
+- Removed the Soul of Lost from the Golden Soul pool
+- Rune Shards will no longer spawn when Soul of Cadaver and Golden Souls have not been unlocked
+- Halitosis now has custom sfx
+- Halitosis now overrides Trisagion during the active
+- The Morgue can now contain Bag of Crafting, Sumptorium, etc.
+- Rotten Chest pedestal items now use the Rotten Beggar pool
+- Rotten Chests can no longer spawn in challenge rooms
+- When Cadaver has Birthright and Rotten Baby, the player is limited to 10 total locusts at a time (it's still really strong)
+- Vestments now properly gives the same item in a room no matter where you entered from
+
+2.2
+===
+Box of Friends no longer always gives Tech Drones (oops)
+
+2.1
+===
++ Added EID Item Descriptions
+- Tweaked item qualities based on more playtesting
+- Fixed scenarios Probiotics effect would not update properly
+- Fixed a buggy interaction between Cadaver's Left Eye and Tainted Cadaver's passive. Now it just gives a damage up.
+- Hive Mind now properly functions on Tainted Cadaver
+- Eternal hearts no longer heal an additional heart when completed on Tainted Cadaver.
+
+2.0
+===
+Tainted Cadaver Update! See the mod description for the full details.

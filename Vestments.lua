@@ -1,4 +1,4 @@
-local Helper = require("Helper")
+local Helper = include("Helper")
 local Vestments = {}
 
 CollectibleType.COLLECTIBLE_VESTMENTS = Isaac.GetItemIdByName("Vestments")
@@ -63,9 +63,12 @@ function Vestments.LoadData(table)
 end
 
 function Vestments.Exit()
-  local player = Isaac.GetPlayer(0)
-  if player:HasCollectible(CollectibleType.COLLECTIBLE_VESTMENTS, true) and currentVestmentsItem > 0 then
-    player:RemoveCollectible(currentVestmentsItem)
+  local numPlayers = Game():GetNumPlayers()
+  for i = 0, numPlayers do
+    local player = Isaac.GetPlayer(i)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_VESTMENTS, true) and currentVestmentsItem > 0 then
+      player:RemoveCollectible(currentVestmentsItem)
+    end
   end
 end
 
@@ -88,18 +91,21 @@ function Vestments.UpdateVestmentsEffect(player)
 end
 
 function Vestments.SwapVestmentsItem()
-  local player = Isaac.GetPlayer(0)
-  if player:HasCollectible(CollectibleType.COLLECTIBLE_VESTMENTS, true) then
-    local roomSeedModifier = Game():GetLevel():GetCurrentRoomIndex() << 4
-    local stageSeedModifier = Game():GetLevel():GetStage()
-    local seed = Game():GetSeeds():GetStartSeed() + roomSeedModifier + stageSeedModifier
-    math.randomseed(seed)
-    
-    if currentVestmentsItem > 0 then
-      player:RemoveCollectible(currentVestmentsItem)
+  local numPlayers = Game():GetNumPlayers()
+  for i = 0, numPlayers do
+    local player = Isaac.GetPlayer(i)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_VESTMENTS, true) then
+      local roomSeedModifier = Game():GetLevel():GetCurrentRoomDesc().SafeGridIndex << 4
+      local stageSeedModifier = Game():GetLevel():GetStage()
+      local seed = Game():GetSeeds():GetStartSeed() + roomSeedModifier + stageSeedModifier
+      math.randomseed(seed)
+      
+      if currentVestmentsItem > 0 then
+        player:RemoveCollectible(currentVestmentsItem)
+      end
+      currentVestmentsItem = VESTMENTS_ITEMS[math.random(#VESTMENTS_ITEMS)]
+      player:AddCollectible(currentVestmentsItem, 0, false)
     end
-    currentVestmentsItem = VESTMENTS_ITEMS[math.random(#VESTMENTS_ITEMS)]
-    player:AddCollectible(currentVestmentsItem, 0, false)
   end
 end
 

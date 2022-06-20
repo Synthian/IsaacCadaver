@@ -64,14 +64,23 @@ When Tainted Cadaver has Birthright, his friendly units automatically respawn af
 [b]Hydrochloric Acid[/b] [i](Defeat Beast as Tainted Cadaver)[/i]
 [Treasure Room] After hitting an enemy 5 times, all future attacks will deal additional flat damage.
 
-[h1]AUTHOR'S NOTE[/h1]
-Thanks to everyone who has supported me during the development of this mod. I plan to continue making bug fixes and small refinements, but I am happy where the mod is now and I think it's nearing completion. Hope you all enjoy the Rotten Expansion!
+[h1]MULTIPLAYER SUPPORT[/h1]
+Item unlock progression is only tracked if Player 1 is Cadaver/Tainted Cadaver.
 
-[h1]MORE INFO[/h1]
-To just play Cadaver (without any unlocks), install this mod instead: https://steamcommunity.com/sharedfiles/filedetails/?id=2509303609
+Morgue Key will only remember items held by Player 1.
+
+Heart conversions to Rotten + Bone hearts are only done if Player 1 is Cadaver/Tainted Cadaver.
+
+Multiple Tainted Cadavers share one army that respawns when any Tainted Cadaver uses Halitosis.
+
+
+[h1]AUTHOR'S NOTE[/h1]
+Thanks to everyone who has supported me during the development of this mod. This mod is content-complete and will not be receiving updates outside of bug-fixes and technical improvements.
+
+Thanks to Carrygan for all of his testing support.
 
 For full details, see the GitHub: https://github.com/Synthian/IsaacCadaver/blob/master/README.md</description>
-    <version>2.2</version>
+    <version>2.3</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>

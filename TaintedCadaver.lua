@@ -1,5 +1,5 @@
-local Helper = require("Helper")
-local json = require("json")
+local Helper = include("Helper")
+local json = include("json")
 
 local TaintedCadaver = {}
 
@@ -10,6 +10,7 @@ PlayerType.PLAYER_TAINTED_CADAVER = Isaac.GetPlayerTypeByName("Cadaver", true)
 function TaintedCadaver.PlayerInit(player)
   local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/tainted_cadaver.anm2")
   player:AddNullCostume(cadaverCostume)
+  player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS)
 end
 
 -- # STATS #
@@ -20,36 +21,39 @@ local TAINTED_CADAVER_STATS = {
   DAMAGE_MULTIPLIER = 0.6
 }
 
-local lastItemDamage = -1.0
-local lastCalculatedDamage = -1.0
-local currentMultiplier = -1.0
+local statCache = {}
 
 function TaintedCadaver.ModifyStats(player, cacheFlag)
   if player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then
+    local pHash = GetPtrHash(player)
+    if not statCache[pHash] then
+      statCache[pHash] = { lastItemDamage = -1.0, lastCalculatedDamage = -1.0, currentMultiplier = -1.0 }
+    end
+
     if cacheFlag == CacheFlag.CACHE_FIREDELAY or cacheFlag == CacheFlag.CACHE_DAMAGE then
-      if string.format("%.2f", player.Damage) == string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY then
+      if string.format("%.2f", player.Damage) == string.format("%.2f", statCache[pHash].lastCalculatedDamage) and player.MaxFireDelay ~= TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY then
         local lockedRate = 30.0 / (TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY + 1.0)
         local newRate = 30.0 / (player.MaxFireDelay + 1)
-        currentMultiplier = newRate / lockedRate
+        statCache[pHash].currentMultiplier = newRate / lockedRate
         player.MaxFireDelay = TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY
-        lastCalculatedDamage = lastItemDamage * TAINTED_CADAVER_STATS.DAMAGE_MULTIPLIER * currentMultiplier
-        player.Damage = lastCalculatedDamage
+        statCache[pHash].lastCalculatedDamage = statCache[pHash].lastItemDamage * TAINTED_CADAVER_STATS.DAMAGE_MULTIPLIER * statCache[pHash].currentMultiplier
+        player.Damage = statCache[pHash].lastCalculatedDamage
       end
 
-      if string.format("%.2f", player.Damage) ~= string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay == TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY then
-        lastItemDamage = player.Damage
-        lastCalculatedDamage = player.Damage * TAINTED_CADAVER_STATS.DAMAGE_MULTIPLIER * currentMultiplier
-        player.Damage = lastCalculatedDamage
+      if string.format("%.2f", player.Damage) ~= string.format("%.2f", statCache[pHash].lastCalculatedDamage) and player.MaxFireDelay == TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY then
+        statCache[pHash].lastItemDamage = player.Damage
+        statCache[pHash].lastCalculatedDamage = player.Damage * TAINTED_CADAVER_STATS.DAMAGE_MULTIPLIER * statCache[pHash].currentMultiplier
+        player.Damage = statCache[pHash].lastCalculatedDamage
       end
 
-      if string.format("%.2f", player.Damage) ~= string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY then
-        lastItemDamage = player.Damage
+      if string.format("%.2f", player.Damage) ~= string.format("%.2f", statCache[pHash].lastCalculatedDamage) and player.MaxFireDelay ~= TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY then
+        statCache[pHash].lastItemDamage = player.Damage
         local lockedRate = 30.0 / (TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY + 1.0)
         local newRate = 30.0 / (player.MaxFireDelay + 1)
-        currentMultiplier = newRate / lockedRate
+        statCache[pHash].currentMultiplier = newRate / lockedRate
         player.MaxFireDelay = TAINTED_CADAVER_STATS.STATIC_TEAR_DELAY
-        lastCalculatedDamage = player.Damage * TAINTED_CADAVER_STATS.DAMAGE_MULTIPLIER * currentMultiplier
-        player.Damage = lastCalculatedDamage
+        statCache[pHash].lastCalculatedDamage = player.Damage * TAINTED_CADAVER_STATS.DAMAGE_MULTIPLIER * statCache[pHash].currentMultiplier
+        player.Damage = statCache[pHash].lastCalculatedDamage
       end 
     end
   end
@@ -317,10 +321,6 @@ function TaintedCadaver.Reset(isContinued)
   end
 
   if not isContinued then
-    local player = Isaac.GetPlayer(0)
-    if player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then
-      player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS)
-    end
     currentLevel = STARTING_LEVEL
     bankedSoulHearts = STARTING_BANK  
   end

@@ -1,4 +1,4 @@
-local Helper = require("Helper")
+local Helper = include("Helper")
 local MorgueKey = {}
 
 CollectibleType.COLLECTIBLE_MORGUE_KEY = Isaac.GetItemIdByName("Morgue Key")
@@ -20,11 +20,7 @@ ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_DADS_NOTE] = true
 ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_DOGMA] = true
 ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_KNIFE_PIECE_1] = true
 ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_KNIFE_PIECE_2] = true
-ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING] = true
-ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_SUMPTORIUM] = true
 ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_HOLD] = true
-ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_FLIP] = true
-ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_C_SECTION] = true
 ITEM_BLACKLIST[CollectibleType.COLLECTIBLE_BROKEN_GLASS_CANNON] = true
 
 local SHOPKEEPER_SPRITES = {}

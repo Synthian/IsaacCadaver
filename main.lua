@@ -1,18 +1,18 @@
-local Achievements = require("Achievements")
-local RottenFlesh = require("RottenFlesh")
-local TechDrones = require("TechDrones")
-local HydrochloricAcid = require("HydrochloricAcid")
-local Vestments = require("Vestments")
-local ForbiddenFruit = require("ForbiddenFruit")
-local Probiotics = require("Probiotics")
-local RottenIsaac = require("RottenIsaac")
-local Halitosis = require("Halitosis")
-local TaintedCadaver = require("TaintedCadaver")
-local MorgueKey = require("MorgueKey")
-local CustomSouls = require("CustomSouls")  
-local RottenChest = require("RottenChest")
-local ItemPools = require("ItemPools")
-local json = require("json")
+local Achievements = include("Achievements")
+local RottenFlesh = include("RottenFlesh")
+local TechDrones = include("TechDrones")
+local HydrochloricAcid = include("HydrochloricAcid")
+local Vestments = include("Vestments")
+local ForbiddenFruit = include("ForbiddenFruit")
+local Probiotics = include("Probiotics")
+local RottenIsaac = include("RottenIsaac")
+local Halitosis = include("Halitosis")
+local TaintedCadaver = include("TaintedCadaver")
+local MorgueKey = include("MorgueKey")
+local CustomSouls = include("CustomSouls")  
+local RottenChest = include("RottenChest")
+local ItemPools = include("ItemPools")
+local json = include("json")
 local Cadaver = RegisterMod("Cadaver", 1)
 
 Achievements.RegisterCallbacks(Cadaver)
@@ -29,7 +29,6 @@ function Cadaver:StartRun(isContinued)
     ForbiddenFruit.LoadData(table.ForbiddenFruit)
     Vestments.LoadData(table.Vestments)
     Achievements.LoadData(table.CadaverAchievements)
-    ItemPools.LoadData(table.ItemPools)
     TaintedCadaver.LoadData(table.TaintedCadaver)
     MorgueKey.LoadData(table.MorgueKey)
   else
@@ -38,10 +37,11 @@ function Cadaver:StartRun(isContinued)
   
   Vestments.Reset(isContinued)
   ForbiddenFruit.Reset(isContinued)
-  ItemPools.Reset(isContinued)
   TaintedCadaver.Reset(isContinued)
   MorgueKey.Reset(isContinued)
   Probiotics.Reset(isContinued)
+
+  Achievements.SetupItemPools()
   
   -- Evaluate stats after everything has been setup
   local player = Isaac.GetPlayer(0)
@@ -63,24 +63,12 @@ function Cadaver:ModifyTarotCards(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTarotCards, PickupVariant.PICKUP_TAROTCARD)
 
--- # POST TRINKET CREATION #
-function Cadaver:ModifyTrinkets(pickup)
-  ItemPools.RemoveLockedTrinkets(pickup)
-end
-Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTrinkets, PickupVariant.PICKUP_TRINKET)
-
 -- # POST HEART CREATION #
 function Cadaver:ModifyHearts(pickup)
   RottenIsaac.ReplaceHearts(pickup)
   TaintedCadaver.ReplaceHearts(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyHearts, PickupVariant.PICKUP_HEART)
-
--- # MODIFY COLLECTIBLE DROPS #
-function Cadaver:ModifyCollectible(itemPoolType, decrease, seed)
-  return ItemPools.GetCollectible(itemPoolType, decrease, seed)
-end
-Cadaver:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, Cadaver.ModifyCollectible)
 
 -- # EFFECT UPDATES (Every frame) #
 function Cadaver:EffectUpdate(player)
@@ -148,6 +136,7 @@ function Cadaver:ModifyStats(player, cacheFlag)
   RottenIsaac.ModifyStats(player, cacheFlag)
   TaintedCadaver.ModifyStats(player, cacheFlag)
   TechDrones.UpdateCache(player, cacheFlag)
+  Halitosis.ModifyStats(player, cacheFlag)
 end
 Cadaver:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Cadaver.ModifyStats)
 
@@ -191,7 +180,6 @@ function Cadaver:Exit(shouldSave)
     ForbiddenFruit = ForbiddenFruit.SaveData(),
     Vestments = Vestments.SaveData(),
     CadaverAchievements = Achievements.SaveData(),
-    ItemPools = ItemPools.SaveData(),
     TaintedCadaver = TaintedCadaver.SaveData(),
     MorgueKey = MorgueKey.SaveData()
   }

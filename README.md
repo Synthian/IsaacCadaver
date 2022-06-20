@@ -116,8 +116,14 @@ If Isaac uses Box of Friends, the bots are duplicated temporarily.
 After hitting an enemy 5 times, all future attacks will deal an additional 3.0 flat damage.  
 Synergizes well with Brimstone, Technology, and other weapons that have a high tick rate.  
 
+## Multiplayer Interactions
+* Item unlock progression is only tracked if Player 1 is Cadaver/Tainted Cadaver.
+* Morgue Key will only remember items held by Player 1
+* Heart conversions to Rotten + Bone hearts are only done if Player 1 is Cadaver/Tainted Cadaver.
+* Multiple Tainted Cadavers share one army that respawns when any Tainted Cadaver uses Halitosis.
+* All other interactions should now work as would be expected, but limited testing has been done.
+
 ## Known Issues
-* If a Soul of Cadaver or Golden Soul *would* have spawned but are not unlocked, they are replaced with a Rune Shard to prevent spawning souls you do not already have. I'd like to find a way to work around this.
 * Completion marks do not display on the main menu, even though they are being tracked. There are other mods to add completion marks to modded characters.
-* Several effects ignore item unlocks. For instance, you can obtain bone hearts before unlocking them. I am not aware of a way to avoid this.
-* Achievements show up immediately upon a boss dying, rather than after the run has completed / in between stages. I am not aware of a way to avoid this.
+* Several effects ignore item unlocks. For instance, you can obtain bone hearts before unlocking them.
+* Achievements show up immediately upon a boss dying, rather than after the run has completed / in between stages.

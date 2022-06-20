@@ -1,4 +1,4 @@
-local Helper = require("Helper")
+local Helper = include("Helper")
 local RottenIsaac = {}
 
 PlayerType.PLAYER_CADAVER = Isaac.GetPlayerTypeByName("Cadaver")
@@ -8,17 +8,14 @@ local CADAVER_STATS = {
   DAMAGE_MODIFIER = 0
 }
 
-local lastItemDamage = -1.0
-local lastCalculatedDamage = -1.0
-local currentMultiplier = -1.0
+local statCache = {}
 
 function RottenIsaac.AddCostume(player)
   local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
   player:AddNullCostume(cadaverCostume)
 end
 
-function RottenIsaac.SpawnFriends()
-  local player = Isaac.GetPlayer(0)
+function RottenIsaac.SpawnFriends(player)
   local r = CadaverRNG:RandomFloat()
   
   if r < 0.2 then
@@ -88,7 +85,7 @@ function RottenIsaac.ConvertHealth(player)
     local soulHearts = player:GetSoulHearts()
     player:AddSoulHearts(-soulHearts)
     for i=1,soulHearts do
-      RottenIsaac.SpawnFriends()
+      RottenIsaac.SpawnFriends(player)
     end
   end
 end
@@ -96,33 +93,38 @@ end
 function RottenIsaac.ModifyStats(player, cacheFlag)
   if player:GetPlayerType() == PlayerType.PLAYER_TAINTED_CADAVER then return end
   if player:GetPlayerType() == PlayerType.PLAYER_CADAVER or player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH) then
+    local pHash = GetPtrHash(player)
+    if not statCache[pHash] then
+      statCache[pHash] = { lastItemDamage = -1.0, lastCalculatedDamage = -1.0, currentMultiplier = -1.0 }
+    end
+
     if cacheFlag == CacheFlag.CACHE_FIREDELAY or cacheFlag == CacheFlag.CACHE_DAMAGE then
       -- Just tears changed
-      if string.format("%.2f", player.Damage) == string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
+      if string.format("%.2f", player.Damage) == string.format("%.2f", statCache[pHash].lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
         local lockedRate = 30.0 / (CADAVER_STATS.STATIC_TEAR_DELAY + 1.0)
         local newRate = 30.0 / (player.MaxFireDelay + 1)
-        currentMultiplier = newRate / lockedRate
+        statCache[pHash].currentMultiplier = newRate / lockedRate
         player.MaxFireDelay = CADAVER_STATS.STATIC_TEAR_DELAY
-        lastCalculatedDamage = (lastItemDamage + CADAVER_STATS.DAMAGE_MODIFIER) * currentMultiplier
-        player.Damage = lastCalculatedDamage
+        statCache[pHash].lastCalculatedDamage = (statCache[pHash].lastItemDamage + CADAVER_STATS.DAMAGE_MODIFIER) * statCache[pHash].currentMultiplier
+        player.Damage = statCache[pHash].lastCalculatedDamage
       end
       
       -- Just damage changed
-      if string.format("%.2f", player.Damage) ~= string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay == CADAVER_STATS.STATIC_TEAR_DELAY then
-        lastItemDamage = player.Damage
-        lastCalculatedDamage = (player.Damage + CADAVER_STATS.DAMAGE_MODIFIER) * currentMultiplier
-        player.Damage = lastCalculatedDamage
+      if string.format("%.2f", player.Damage) ~= string.format("%.2f", statCache[pHash].lastCalculatedDamage) and player.MaxFireDelay == CADAVER_STATS.STATIC_TEAR_DELAY then
+        statCache[pHash].lastItemDamage = player.Damage
+        statCache[pHash].lastCalculatedDamage = (player.Damage + CADAVER_STATS.DAMAGE_MODIFIER) * statCache[pHash].currentMultiplier
+        player.Damage = statCache[pHash].lastCalculatedDamage
       end
       
       -- Damage and tears changed
-      if string.format("%.2f", player.Damage) ~= string.format("%.2f", lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
-        lastItemDamage = player.Damage
+      if string.format("%.2f", player.Damage) ~= string.format("%.2f", statCache[pHash].lastCalculatedDamage) and player.MaxFireDelay ~= CADAVER_STATS.STATIC_TEAR_DELAY then
+        statCache[pHash].lastItemDamage = player.Damage
         local lockedRate = 30.0 / (CADAVER_STATS.STATIC_TEAR_DELAY + 1.0)
         local newRate = 30.0 / (player.MaxFireDelay + 1)
-        currentMultiplier = newRate / lockedRate
+        statCache[pHash].currentMultiplier = newRate / lockedRate
         player.MaxFireDelay = CADAVER_STATS.STATIC_TEAR_DELAY
-        lastCalculatedDamage = (player.Damage + CADAVER_STATS.DAMAGE_MODIFIER) * currentMultiplier
-        player.Damage = lastCalculatedDamage
+        statCache[pHash].lastCalculatedDamage = (player.Damage + CADAVER_STATS.DAMAGE_MODIFIER) * statCache[pHash].currentMultiplier
+        player.Damage = statCache[pHash].lastCalculatedDamage
       end 
     end
   end
@@ -131,10 +133,21 @@ end
 function RottenIsaac.Birthright(player)
   if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
     local entities = Isaac:GetRoomEntities()
+    local locustCount = 0
     for i, entity in ipairs(entities) do
       if entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.BLUE_FLY and entity.SubType == 0 then
         Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, Helper.OneIndexedRandom(CadaverRNG, 5), entity.Position, entity.Velocity, nil)
         entity:Remove()
+      end
+
+      if player:HasCollectible(CollectibleType.COLLECTIBLE_ROTTEN_BABY)
+        and entity.Type == EntityType.ENTITY_FAMILIAR
+        and entity.Variant == FamiliarVariant.BLUE_FLY
+        and entity.SubType ~= 0 then
+          locustCount = locustCount + 1
+          if (locustCount > 10) then
+            entity:Remove()
+          end
       end
     end
   end

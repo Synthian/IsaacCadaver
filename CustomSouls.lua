@@ -1,4 +1,4 @@
-local Helper = require("Helper")
+local Helper = include("Helper")
 local CustomSouls = {}
 
 Card.CARD_SOUL_CADAVER = Isaac.GetCardIdByName("SoulOfCadaver")
@@ -14,7 +14,6 @@ local SOUL_CARDS = {
   Card.CARD_SOUL_SAMSON,
   Card.CARD_SOUL_AZAZEL,
   Card.CARD_SOUL_EDEN,
-  Card.CARD_SOUL_LOST,
   Card.CARD_SOUL_LILITH,
   Card.CARD_SOUL_KEEPER,
   Card.CARD_SOUL_APOLLYON,
@@ -26,9 +25,26 @@ local SOUL_CARDS = {
   local GOLDEN_SOUL_CHANCE = 0.6
   
   function CustomSouls.RemoveLockedSouls(pickup)
-    if (pickup.SubType == Card.CARD_SOUL_CADAVER and not CadaverAchievements.SoulOfCadaver) or 
-    (pickup.SubType == Card.CARD_SOUL_GOLDEN and not CadaverAchievements.GoldenSoul) then
-      pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.RUNE_SHARD)
+    if (pickup.SubType == Card.CARD_SOUL_CADAVER and not CadaverAchievements.SoulOfCadaver) then
+      local counter = 10000
+      local card = Game():GetItemPool():GetCard(pickup.InitSeed + counter, false, true, true)
+    
+      while card == Card.CARD_SOUL_CADAVER  do
+        counter = counter + 10000
+        card = Game():GetItemPool():GetCard(pickup.InitSeed + counter, false, true, true)
+      end
+      pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, card)
+    end
+
+    if (pickup.SubType == Card.CARD_SOUL_GOLDEN and not CadaverAchievements.GoldenSoul) then
+      local counter = 10000
+      local card = Game():GetItemPool():GetCard(pickup.InitSeed + counter, false, true, true)
+    
+      while card == Card.CARD_SOUL_GOLDEN do
+        counter = counter + 10000
+        card = Game():GetItemPool():GetCard(pickup.InitSeed + counter, false, true, true)
+      end
+      pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, card)
     end
   end
   

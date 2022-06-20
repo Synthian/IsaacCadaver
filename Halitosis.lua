@@ -1,19 +1,20 @@
 local Halitosis = {}
 
 CollectibleType.COLLECTIBLE_HALITOSIS = Isaac.GetItemIdByName("Halitosis")
--- Custom sounds are currently bugged in Repentance. Will activate this sfx when it's fixed
 SoundEffect.HALITOSIS = Isaac.GetSoundIdByName("HalitosisVocal")
 
 local MAX_DURATION = 30
-local currentDuration = 0
+local currentDurations = {}
 
 function Halitosis.Use(collectibleType, RNG, player, useFlags, slot)
   if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
-    currentDuration = MAX_DURATION * 2
+    currentDurations[GetPtrHash(player)] = MAX_DURATION * 2
   else
-    currentDuration = MAX_DURATION
+    currentDurations[GetPtrHash(player)] = MAX_DURATION
   end
-  SFXManager():Play(SoundEffect.SOUND_BEAST_FIRE_BARF, 1, 2, false, 1, 0)
+  SFXManager():Play(SoundEffect.HALITOSIS, 2, 2, false, 1, 0)
+  player:AddCacheFlags(CacheFlag.CACHE_TEARFLAG)
+  player:EvaluateItems()
 end
 
 local AIM_VECTORS = {}
@@ -23,16 +24,20 @@ AIM_VECTORS[Direction.RIGHT] = Vector(1, 0)
 AIM_VECTORS[Direction.DOWN] = Vector(0, 1)
 
 function Halitosis.UpdateHalitosisEffect(player)
-  if currentDuration > 0 then
+  if currentDurations[GetPtrHash(player)] and currentDurations[GetPtrHash(player)] > 0 then
     player.FireDelay = player.MaxFireDelay
-    currentDuration = currentDuration - 1
+    currentDurations[GetPtrHash(player)] = currentDurations[GetPtrHash(player)] - 1
+
+    if (currentDurations[GetPtrHash(player)] == 0) then
+      player:AddCacheFlags(CacheFlag.CACHE_TEARFLAG)
+      player:EvaluateItems()
+    end
 
     -- Fire every 5th
-    if currentDuration % 5 == 0 then
-      local aimDirection = Vector(0,0)
-      
+    if currentDurations[GetPtrHash(player)] % 5 == 0 then
       local tear = player:FireTear(player.Position + (AIM_VECTORS[player:GetHeadDirection()] * 10), AIM_VECTORS[player:GetHeadDirection()] * 10, false, true, false, player, 1)
-      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PIERCING | TearFlags.TEAR_POISON | TearFlags.TEAR_FEAR
+      tear:AddTearFlags(TearFlags.TEAR_PIERCING | TearFlags.TEAR_POISON | TearFlags.TEAR_FEAR)
+
       tear.SizeMulti = Vector(3, 3)
       tear.SpriteScale = Vector(0.3, 0.3)
       local sprite = tear:GetSprite()
@@ -49,6 +54,17 @@ function Halitosis.UpdateHalitosisEffect(player)
       elseif player:GetHeadDirection() == Direction.RIGHT then
         sprite:Play("MoveHori")
       end
+    end
+  end
+end
+
+-- Need to remove the Trisagion effect temporarily for Halitosis because it doesn't play nicely with TearFlags on individual tears
+function Halitosis.ModifyStats(player, cacheFlag)
+  if (cacheFlag == CacheFlag.CACHE_TEARFLAG) then
+    if (currentDurations[GetPtrHash(player)] and currentDurations[GetPtrHash(player)] > 0) then
+      player.TearFlags = player.TearFlags & ~TearFlags.TEAR_LASERSHOT
+    elseif (player:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION)) then
+      player.TearFlags = player.TearFlags | TearFlags.TEAR_LASERSHOT
     end
   end
 end

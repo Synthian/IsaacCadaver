@@ -1,4 +1,4 @@
-local Helper = require("Helper")
+local Helper = include("Helper")
 local RottenChest = {}
 
 PickupVariant.PICKUP_ROTTENCHEST = Isaac.GetEntityVariantByName("Rotten Chest")
@@ -8,26 +8,13 @@ local MyChestSubType = {
   OPEN = 1
 }
 
-local ROTTEN_CHEST_POOL = {
-  CollectibleType.COLLECTIBLE_YUCK_HEART,
-  CollectibleType.COLLECTIBLE_BOBS_BRAIN,
-  CollectibleType.COLLECTIBLE_COMPOST,
-  CollectibleType.COLLECTIBLE_BOBS_CURSE,
-  CollectibleType.COLLECTIBLE_ROTTEN_BABY,
-  CollectibleType.COLLECTIBLE_ROTTEN_MEAT,
-  CollectibleType.COLLECTIBLE_ROTTEN_TOMATO,
-  CollectibleType.COLLECTIBLE_MUCORMYCOSIS,
-  CollectibleType.COLLECTIBLE_SOCKS,
-  CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE
-}
-
 local ROTTEN_CHEST_TRINKETS = {
-  TrinketType.TRINKET_PROBIOTICS,
   TrinketType.TRINKET_FISH_HEAD,
   TrinketType.TRINKET_FISH_TAIL,
   TrinketType.TRINKET_LUCKY_TOE,
   TrinketType.TRINKET_ROTTEN_PENNY,
-  TrinketType.TRINKET_APPLE_OF_SODOM
+  TrinketType.TRINKET_APPLE_OF_SODOM,
+  TrinketType.TRINKET_PROBIOTICS
 }
 
 function RottenChest.RemoveOpenChests()
@@ -42,7 +29,7 @@ end
 function RottenChest.ReplaceChests(pickup)
   local stage = Game():GetLevel():GetStage()
   CadaverItemRNG:SetSeed(pickup.DropSeed, 0)
-  if CadaverAchievements.RottenChest and stage ~= LevelStage.STAGE6 and CadaverItemRNG:RandomFloat() < 0.05 then
+  if CadaverAchievements.RottenChest and stage ~= LevelStage.STAGE6 and Game():GetRoom():GetType() ~= RoomType.ROOM_CHALLENGE and CadaverItemRNG:RandomFloat() < 0.05 then
     pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_ROTTENCHEST, MyChestSubType.CLOSED)
     SFXManager():Play(SoundEffect.SOUND_CHEST_DROP)
   end
@@ -51,7 +38,8 @@ end
 function RottenChest.SpawnReward(chest, collider)
   -- 15% chance to spawn pedestal item
   if CadaverRNG:RandomFloat() < 0.15 then
-    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, ROTTEN_CHEST_POOL[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_POOL)], chest.Position, Helper.RandomVelocity(), nil)
+    local item = Game():GetItemPool():GetCollectible(ItemPoolType.POOL_ROTTEN_BEGGAR, true, Random(), CollectibleType.COLLECTIBLE_ROTTEN_MEAT)
+    Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, item, chest.Position, Helper.RandomVelocity(), nil)
     chest:Remove()
   else
     -- 2 normal pickups
@@ -77,7 +65,7 @@ function RottenChest.SpawnReward(chest, collider)
       Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BONE, chest.Position, Helper.RandomVelocity(), nil)
     else
       if not CadaverAchievements.Probiotics then
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_TRINKETS - 1) + 1], chest.Position, Helper.RandomVelocity(), nil)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_TRINKETS - 1)], chest.Position, Helper.RandomVelocity(), nil)
       else
         Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, ROTTEN_CHEST_TRINKETS[Helper.OneIndexedRandom(CadaverRNG, #ROTTEN_CHEST_TRINKETS)], chest.Position, Helper.RandomVelocity(), nil)
       end

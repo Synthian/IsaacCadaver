@@ -75,6 +75,33 @@ function Achievements.SaveData()
   return CadaverAchievements
 end
 
+function Achievements.SetupItemPools()
+  if not CadaverAchievements.Vestments then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_VESTMENTS)
+  end
+  if not CadaverAchievements.ForbiddenFruit then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_FORBIDDEN_FRUIT)
+  end
+  if not CadaverAchievements.RottenFlesh then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_ROTTEN_FLESH)
+  end
+  if not CadaverAchievements.Halitosis then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_HALITOSIS)
+  end
+  if not CadaverAchievements.TechDrones then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_TECH_DRONES)
+  end
+  if not CadaverAchievements.MorgueKey then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_MORGUE_KEY)
+  end
+  if not CadaverAchievements.HydrochloricAcid then
+    Game():GetItemPool():RemoveCollectible(CollectibleType.COLLECTIBLE_HYDROCHLORIC_ACID)
+  end
+  if not CadaverAchievements.Probiotics then
+    Game():GetItemPool():RemoveTrinket(TrinketType.TRINKET_PROBIOTICS)
+  end
+end
+
 function Achievements.DisplayAchievement()
   achievementSprite:LoadGraphics()
   achievementSprite:Play("Appear", true)

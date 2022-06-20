@@ -8,7 +8,7 @@ local ORBIT_SPEED = 0.02
 local ORBIT_LAYER = 130
 
 function TechDrones.Update(familiar)
-  local player = Isaac.GetPlayer(0)
+  local player = familiar.Player
   familiar.OrbitDistance = ORBIT_DISTANCE
 	familiar.OrbitSpeed = ORBIT_SPEED
   familiar.Velocity = familiar:GetOrbitPosition(player.Position + player.Velocity) - familiar.Position
@@ -64,7 +64,7 @@ end
 
 function TechDrones.LaserDamage(entity, amount, flags, source, countdownFrames)
   if source ~= nil and source.Entity ~= nil and source.Entity.Type == EntityType.ENTITY_FAMILIAR and source.Entity.Variant == FamiliarVariant.TECH_DRONES then
-    local player = Isaac.GetPlayer(0)
+    local player = source.Entity:ToFamiliar().Player
     local damageMultiplier = 0.4
     if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
       damageMultiplier = 0.6
@@ -97,6 +97,7 @@ function TechDrones.UpdateCache(player, cacheFlag)
       for i=1,pairs do
         local ent = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.TECH_DRONES, 0, player.Position, Vector(0,0), nil)
         local fam = ent:ToFamiliar()
+        fam.Player = player
         table.insert(bots, fam)
         fam:AddToOrbit(ORBIT_LAYER)
         fam.OrbitDistance = ORBIT_DISTANCE
@@ -105,6 +106,7 @@ function TechDrones.UpdateCache(player, cacheFlag)
       for i=1,pairs do
         local ent = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.TECH_DRONES, 1, player.Position, Vector(0,0), nil)
         local fam = ent:ToFamiliar()
+        fam.Player = player
         table.insert(bots, fam)
         fam:AddToOrbit(ORBIT_LAYER)
         fam.OrbitDistance = ORBIT_DISTANCE
