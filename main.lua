@@ -84,6 +84,7 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.EffectUpdate)
 function Cadaver:CadaverEffectUpdate(player)
   RottenIsaac.ConvertHealth(player)
   RottenIsaac.Birthright(player)
+  RottenIsaac.ManageCostumes(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.CadaverEffectUpdate, PlayerType.PLAYER_CADAVER)
 
