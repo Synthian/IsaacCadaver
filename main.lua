@@ -59,7 +59,6 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyPickups, Pic
 -- # POST TAROT CARD CREATION #
 function Cadaver:ModifyTarotCards(pickup)
   CustomSouls.RemoveLockedSouls(pickup)
-  CustomSouls.ChangeSprites(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTarotCards, PickupVariant.PICKUP_TAROTCARD)
 
