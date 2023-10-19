@@ -1,3 +1,10 @@
+2.4
+===
+- New sprites for items, objects, and more!
+- Fix soul sprites when held as a secondary pocket item
+- Fix Vestments removing transformation progress
+- Fix Guppy transformation visuals
+
 2.3
 ===
 - Several co-op fixes

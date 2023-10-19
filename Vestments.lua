@@ -101,7 +101,7 @@ function Vestments.SwapVestmentsItem()
       math.randomseed(seed)
       
       if currentVestmentsItem > 0 then
-        player:RemoveCollectible(currentVestmentsItem)
+        player:RemoveCollectible(currentVestmentsItem, false, ActiveSlot.SLOT_PRIMARY, false)
       end
       currentVestmentsItem = VESTMENTS_ITEMS[math.random(#VESTMENTS_ITEMS)]
       player:AddCollectible(currentVestmentsItem, 0, false)

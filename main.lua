@@ -59,7 +59,6 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyPickups, Pic
 -- # POST TAROT CARD CREATION #
 function Cadaver:ModifyTarotCards(pickup)
   CustomSouls.RemoveLockedSouls(pickup)
-  CustomSouls.ChangeSprites(pickup)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, Cadaver.ModifyTarotCards, PickupVariant.PICKUP_TAROTCARD)
 
@@ -84,6 +83,7 @@ Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.EffectUpdate)
 function Cadaver:CadaverEffectUpdate(player)
   RottenIsaac.ConvertHealth(player)
   RottenIsaac.Birthright(player)
+  RottenIsaac.ManageCostumes(player)
 end
 Cadaver:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Cadaver.CadaverEffectUpdate, PlayerType.PLAYER_CADAVER)
 

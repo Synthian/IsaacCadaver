@@ -48,19 +48,6 @@ local SOUL_CARDS = {
     end
   end
   
-  function CustomSouls.ChangeSprites(pickup)
-    if pickup.SubType == Card.CARD_SOUL_CADAVER then
-      local sprite = pickup:GetSprite()
-      sprite:Load("gfx/items/soul_of_cadaver.anm2", true)
-      sprite:Play("Appear")
-    end
-    if pickup.SubType == Card.CARD_SOUL_GOLDEN then
-      local sprite = pickup:GetSprite()
-      sprite:Load("gfx/items/golden_soul.anm2", true)
-      sprite:Play("Appear")
-    end
-  end
-  
   function CustomSouls.UseGoldenSoul(player)
     local soul = SOUL_CARDS[Helper.OneIndexedRandom(CadaverRNG, #SOUL_CARDS)]
     player:UseCard(soul)

@@ -3,16 +3,18 @@ local RottenIsaac = {}
 
 PlayerType.PLAYER_CADAVER = Isaac.GetPlayerTypeByName("Cadaver")
 
+local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
 local CADAVER_STATS = {
   STATIC_TEAR_DELAY = 19.0,
   DAMAGE_MODIFIER = 0
 }
 
 local statCache = {}
+local costumeCache = {}
 
 function RottenIsaac.AddCostume(player)
-  local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/cadaver.anm2")
   player:AddNullCostume(cadaverCostume)
+  costumeCache[GetPtrHash(player)] = true
 end
 
 function RottenIsaac.SpawnFriends(player)
@@ -150,6 +152,15 @@ function RottenIsaac.Birthright(player)
           end
       end
     end
+  end
+end
+
+function RottenIsaac.ManageCostumes(player)
+  if (player:HasPlayerForm(PlayerForm.PLAYERFORM_GUPPY) and costumeCache[GetPtrHash(player)] == true) then
+    player:TryRemoveNullCostume(cadaverCostume)
+    costumeCache[GetPtrHash(player)] = false
+  elseif (not player:HasPlayerForm(PlayerForm.PLAYERFORM_GUPPY) and costumeCache[GetPtrHash(player)] == false) then
+    RottenIsaac.AddCostume(player)
   end
 end
 

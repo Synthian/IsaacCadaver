@@ -73,6 +73,8 @@ Heart conversions to Rotten + Bone hearts are only done if Player 1 is Cadaver/T
 
 Multiple Tainted Cadavers share one army that respawns when any Tainted Cadaver uses Halitosis.
 
+[h1]ART CREDIT[/h1]
+Updated sprites contributed by: HoneyVee, june, sipher nil, and Warhamm2000. Thank you so much!
 
 [h1]AUTHOR'S NOTE[/h1]
 Thanks to everyone who has supported me during the development of this mod. This mod is content-complete and will not be receiving updates outside of bug-fixes and technical improvements.
@@ -80,7 +82,7 @@ Thanks to everyone who has supported me during the development of this mod. This
 Thanks to Carrygan for all of his testing support.
 
 For full details, see the GitHub: https://github.com/Synthian/IsaacCadaver/blob/master/README.md</description>
-    <version>2.3</version>
+    <version>2.4</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
