@@ -1,3 +1,7 @@
+2.5
+===
+- Fixed Morgue Key not working in Greed mode
+
 2.4
 ===
 - New sprites for items, objects, and more!
