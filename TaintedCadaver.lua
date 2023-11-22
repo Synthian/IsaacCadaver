@@ -10,7 +10,7 @@ PlayerType.PLAYER_TAINTED_CADAVER = Isaac.GetPlayerTypeByName("Cadaver", true)
 function TaintedCadaver.PlayerInit(player)
   local cadaverCostume = Isaac.GetCostumeIdByPath("gfx/characters/tainted_cadaver.anm2")
   player:AddNullCostume(cadaverCostume)
-  player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS)
+  player:SetPocketActiveItem(CollectibleType.COLLECTIBLE_HALITOSIS, ActiveSlot.SLOT_POCKET, true)
 end
 
 -- # STATS #

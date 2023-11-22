@@ -1,3 +1,7 @@
+2.9
+===
+- Fixed crash when continuing a Tainted Cadaver run after restarting the game
+
 2.5
 ===
 - Fixed Morgue Key not working in Greed mode
